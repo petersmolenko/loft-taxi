@@ -7,16 +7,6 @@ import Profile from '../Profile'
 
 
 class Main extends React.Component {
-    render() {
-        return (
-            <main className='Main'>
-                <div className="Main__content">
-                    {this.renderPage(this.props.page)}
-                </div>
-            </main>
-        )
-    }
-
     renderPage = (page) => {
         switch (page) {
             case 'login':
@@ -35,6 +25,16 @@ class Main extends React.Component {
     stopSubmit = e => {
         e.preventDefault();
         console.log('Data submited')
+    }
+
+    render() {
+        return (
+            <main className='Main'>
+                <div className="Main__content">
+                    {this.renderPage(this.props.page)}
+                </div>
+            </main>
+        )
     }
 }
 
