@@ -1,0 +1,115 @@
+.Main {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url('../../assets/Main_background.jpg');
+    background-size: cover;
+    background-position: center center;
+}
+
+.Main__content {
+    display: flex;
+}
+
+.Main__logo {
+    padding-right: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Main__logo-img {
+    width: 10rem;
+}
+
+.Main__page {
+    background: white;
+    border-radius: .2rem;
+    padding: 3rem;
+}
+
+.Main__form-input, .Main__page-title, .Main__page-message, .Main__card-area {
+    margin-bottom: 2rem;
+}
+
+.Main__page-title {
+    font-size: 2.25rem;
+    font-family: 'Roboto', sans-serif;
+    color: #323232;
+    letter-spacing: 0.00735em;
+    font-family: 'Roboto', sans-serif;
+}
+
+.Main__page-title_center {
+    text-align: center;
+}
+
+.Main__page-message {
+    color: #505050;
+}
+
+.Main__page-message a {
+    text-decoration: none;
+    color: #1473e6;
+}
+
+.Main__form {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    width: 24rem;
+}
+
+.Main__form_large {
+    width: 36rem;
+}
+
+.Main__form-input {
+    width: 100%;
+    padding: .4rem 0;
+    border: none;
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+    border-bottom: 1px solid #747474;
+    outline: none;
+}
+
+.Main__form-input_half {
+    width: 47%;
+}
+
+.Main__form-submit {
+    background: #ffc617;
+    margin-left: auto;
+    color: black;
+    padding: .5rem 1rem;
+    border: none;
+    outline: none;
+    border-radius: .2rem;
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+}
+
+.Main__form-submit_center {
+    margin-right: auto;
+}
+
+.Main__form-submit:hover {
+    cursor: pointer;
+}
+
+.Main__card-area {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Main__card {
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, .5);
+    border-radius: .25rem;
+    padding: 1.5rem;
+    width: 14rem;
+}
+
