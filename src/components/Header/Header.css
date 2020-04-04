@@ -1,0 +1,44 @@
+.Header {
+    padding: .2rem 1.5rem;
+    background: white;
+    /* min-width: 100vw; */
+    display: flex;
+    box-shadow: 0 .2rem .5rem rgba(0, 0, 0, .2);
+}
+
+.Header__logo {
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 1rem;
+}
+
+.Header__logo-img {
+    width: 156px;
+}
+
+.Header__controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Header__btn {
+    background: inherit;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.75;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: none;
+    outline: none;
+    padding: .375rem .7rem;
+    border-radius: .3rem;
+    color: rgba(0, 0, 0, 0.87);
+    letter-spacing: 0.02857em;
+}
+
+.Header__btn:hover {
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.08);
+}
