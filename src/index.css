@@ -11,3 +11,27 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#root {
+    min-height: 100vh;
+    min-width: 100vw;
+}
+
+.jss {
+    background-image: url(./assets/Main_background.jpg);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.MainLogo {
+    width: 10rem;
+}
+
+.AppForm {
+    padding: 4rem;
+}
+
+.AppForm_margin {
+    margin-bottom: 1.5rem!important
+}

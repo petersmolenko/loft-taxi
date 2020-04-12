@@ -1,0 +1,290 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Profile testing renders correctly (authorized) 1`] = `
+<div
+  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 MuiGrid-grid-md-9 MuiGrid-grid-lg-7"
+>
+  <div
+    className="MuiPaper-root AppForm MuiPaper-elevation0 MuiPaper-rounded"
+  >
+    <h4
+      className="MuiTypography-root MuiTypography-h4"
+    >
+      Профиль
+    </h4>
+    <p
+      className="MuiTypography-root AppForm_margin MuiTypography-subtitle1"
+      style={
+        Object {
+          "color": "rgba(0, 0, 0, 0.54)",
+        }
+      }
+    >
+      Способ оплаты
+    </p>
+    <form
+      autoComplete="off"
+      noValidate={true}
+    >
+      <div
+        className="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-column MuiGrid-justify-xs-center"
+      >
+        <div
+          className="MuiGrid-root AppForm_margin MuiGrid-container MuiGrid-spacing-xs-3 MuiGrid-item MuiGrid-justify-xs-space-between"
+        >
+          <div
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
+          >
+            <div
+              className="MuiPaper-root MuiPaper-elevation3 MuiPaper-rounded"
+              style={
+                Object {
+                  "padding": "2.5rem 2rem",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
+              >
+                <img
+                  alt="card logo"
+                  src="mc_symbol.svg"
+                  style={
+                    Object {
+                      "position": "absolute",
+                      "right": 0,
+                      "top": "-.5rem",
+                      "width": "2rem",
+                    }
+                  }
+                />
+              </div>
+              <div
+                className="MuiFormControl-root MuiTextField-root AppForm_margin MuiFormControl-fullWidth"
+              >
+                <label
+                  className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated Mui-required Mui-required"
+                  data-shrink={false}
+                  htmlFor="userCardNum"
+                  id="userCardNum-label"
+                >
+                  Номер карты
+                  <span
+                    className="MuiFormLabel-asterisk MuiInputLabel-asterisk"
+                  >
+                     
+                    *
+                  </span>
+                </label>
+                <div
+                  className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+                  onClick={[Function]}
+                >
+                  <input
+                    aria-invalid={false}
+                    autoFocus={false}
+                    className="MuiInputBase-input MuiInput-input"
+                    disabled={false}
+                    id="userCardNum"
+                    onAnimationStart={[Function]}
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    required={true}
+                    type="text"
+                  />
+                </div>
+              </div>
+              <div
+                className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+              >
+                <label
+                  className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated Mui-required Mui-required"
+                  data-shrink={false}
+                  htmlFor="userCardDuration"
+                  id="userCardDuration-label"
+                >
+                  Срок действия
+                  <span
+                    className="MuiFormLabel-asterisk MuiInputLabel-asterisk"
+                  >
+                     
+                    *
+                  </span>
+                </label>
+                <div
+                  className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+                  onClick={[Function]}
+                >
+                  <input
+                    aria-invalid={false}
+                    autoFocus={false}
+                    className="MuiInputBase-input MuiInput-input"
+                    disabled={false}
+                    id="userCardDuration"
+                    onAnimationStart={[Function]}
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    required={true}
+                    type="text"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
+          >
+            <div
+              className="MuiPaper-root MuiPaper-elevation3 MuiPaper-rounded"
+              style={
+                Object {
+                  "padding": "2.5rem 2rem",
+                }
+              }
+            >
+              <div
+                className="MuiFormControl-root MuiTextField-root AppForm_margin MuiFormControl-fullWidth"
+              >
+                <label
+                  className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated Mui-required Mui-required"
+                  data-shrink={false}
+                  htmlFor="userCardHolder"
+                  id="userCardHolder-label"
+                >
+                  Имя владельца
+                  <span
+                    className="MuiFormLabel-asterisk MuiInputLabel-asterisk"
+                  >
+                     
+                    *
+                  </span>
+                </label>
+                <div
+                  className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+                  onClick={[Function]}
+                >
+                  <input
+                    aria-invalid={false}
+                    autoFocus={false}
+                    className="MuiInputBase-input MuiInput-input"
+                    disabled={false}
+                    id="userCardHolder"
+                    onAnimationStart={[Function]}
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    required={true}
+                    type="text"
+                  />
+                </div>
+              </div>
+              <div
+                className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+              >
+                <label
+                  className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated Mui-required Mui-required"
+                  data-shrink={false}
+                  htmlFor="userCardCVC"
+                  id="userCardCVC-label"
+                >
+                  CVC
+                  <span
+                    className="MuiFormLabel-asterisk MuiInputLabel-asterisk"
+                  >
+                     
+                    *
+                  </span>
+                </label>
+                <div
+                  className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+                  onClick={[Function]}
+                >
+                  <input
+                    aria-invalid={false}
+                    autoFocus={false}
+                    className="MuiInputBase-input MuiInput-input"
+                    disabled={false}
+                    id="userCardCVC"
+                    onAnimationStart={[Function]}
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    required={true}
+                    type="text"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          align="center"
+          className="MuiGrid-root MuiGrid-item"
+        >
+          <button
+            className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
+            disabled={false}
+            onBlur={[Function]}
+            onClick={[MockFunction]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            style={
+              Object {
+                "background": "#ffc617",
+                "color": "rgba(0, 0, 0, 0.87)",
+              }
+            }
+            tabIndex={0}
+            type="button"
+          >
+            <span
+              className="MuiButton-label"
+            >
+              Сохранить
+            </span>
+            <span
+              className="MuiTouchRipple-root"
+            />
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+`;
+
+exports[`Profile testing renders correctly (not authorized) 1`] = `
+<div
+  className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
+  style={
+    Object {
+      "flexGrow": 1,
+    }
+  }
+>
+  <h3
+    className="MuiTypography-root MuiTypography-h3"
+    style={
+      Object {
+        "color": "#ffc617",
+      }
+    }
+  >
+    The user is not logged in:(
+  </h3>
+</div>
+`;

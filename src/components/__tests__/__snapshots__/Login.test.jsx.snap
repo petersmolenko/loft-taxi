@@ -1,0 +1,170 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login testing renders correctly 1`] = `
+Array [
+  <div
+    className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4 MuiGrid-grid-lg-3"
+  >
+    <img
+      alt=""
+      className="MainLogo"
+      src="logo-white.svg"
+    />
+  </div>,
+  <div
+    className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-7 MuiGrid-grid-lg-5"
+  >
+    <div
+      className="MuiPaper-root AppForm MuiPaper-elevation0 MuiPaper-rounded"
+    >
+      <h4
+        className="MuiTypography-root AppForm_margin MuiTypography-h4"
+      >
+        Войти
+      </h4>
+      <p
+        className="MuiTypography-root AppForm_margin MuiTypography-body1"
+      >
+        Новый пользователь?
+         
+        <a
+          className="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
+          href="/"
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+        >
+          Зарегистрируйтесь
+        </a>
+      </p>
+      <form
+        autoComplete="off"
+        noValidate={true}
+      >
+        <div
+          className="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-column MuiGrid-justify-xs-center"
+        >
+          <div
+            className="MuiGrid-root MuiGrid-item"
+          >
+            <div
+              className="MuiFormControl-root MuiTextField-root AppForm_margin MuiFormControl-fullWidth"
+            >
+              <label
+                className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated Mui-required Mui-required"
+                data-shrink={false}
+                htmlFor="userName"
+                id="userName-label"
+              >
+                Имя пользователя
+                <span
+                  className="MuiFormLabel-asterisk MuiInputLabel-asterisk"
+                >
+                   
+                  *
+                </span>
+              </label>
+              <div
+                className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+                onClick={[Function]}
+              >
+                <input
+                  aria-invalid={false}
+                  autoFocus={false}
+                  className="MuiInputBase-input MuiInput-input"
+                  data-testid="userNameField"
+                  disabled={false}
+                  id="userName"
+                  onAnimationStart={[Function]}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={true}
+                  type="text"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            className="MuiGrid-root MuiGrid-item"
+          >
+            <div
+              className="MuiFormControl-root MuiTextField-root AppForm_margin MuiFormControl-fullWidth"
+            >
+              <label
+                className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated Mui-required Mui-required"
+                data-shrink={false}
+                htmlFor="userPassword"
+                id="userPassword-label"
+              >
+                Пароль
+                <span
+                  className="MuiFormLabel-asterisk MuiInputLabel-asterisk"
+                >
+                   
+                  *
+                </span>
+              </label>
+              <div
+                className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+                onClick={[Function]}
+              >
+                <input
+                  aria-invalid={false}
+                  autoFocus={false}
+                  className="MuiInputBase-input MuiInput-input"
+                  data-testid="userPasswordField"
+                  disabled={false}
+                  id="userPassword"
+                  onAnimationStart={[Function]}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={true}
+                  type="password"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            align="right"
+            className="MuiGrid-root MuiGrid-item"
+          >
+            <button
+              className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
+              data-testid="loginBtn"
+              disabled={false}
+              onBlur={[Function]}
+              onClick={[Function]}
+              onDragLeave={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              style={
+                Object {
+                  "background": "#ffc617",
+                  "color": "rgba(0, 0, 0, 0.87)",
+                }
+              }
+              tabIndex={0}
+              type="button"
+            >
+              <span
+                className="MuiButton-label"
+              >
+                Войти
+              </span>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>,
+]
+`;
