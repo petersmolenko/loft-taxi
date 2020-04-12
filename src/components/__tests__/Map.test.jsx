@@ -4,7 +4,9 @@ import renderer from "react-test-renderer";
 import { AuthProvider, AuthContext } from "../../AuthContext";
 import Map from "../Map";
 jest.mock("mapbox-gl/dist/mapbox-gl", () => ({
-    Map: () => ({}),
+    Map: jest.fn(function () {
+        this.remove = () => {};
+    }),
 }));
 
 describe("Map testing", () => {
@@ -32,7 +34,7 @@ describe("Map testing", () => {
             .create(
                 <AuthProvider>
                     <WrapperComponent isLogin={true}>
-                        <Map stopSubmit={handler} isTesting={true} />
+                        <Map stopSubmit={handler} />
                     </WrapperComponent>
                 </AuthProvider>
             )
@@ -51,7 +53,7 @@ describe("Map testing", () => {
         const { getByText } = render(
             <AuthProvider>
                 <WrapperComponent isLogin={true}>
-                    <Map stopSubmit={handler} isTesting={true} />
+                    <Map stopSubmit={handler} />
                 </WrapperComponent>
             </AuthProvider>
         );

@@ -7,11 +7,10 @@ import mapboxgl from "mapbox-gl";
 mapboxgl.accessToken =
     "pk.eyJ1IjoicGV0ZXJzbW9sZW5rbyIsImEiOiJjazhydWVoY3UwYnV2M3F0bDV4ZXh1Z2N4In0.Dj8PKEOg2s4sE5YeGGygow";
 
-const Map = ({ stopSubmit, isTesting }) => {
+const Map = ({ stopSubmit }) => {
     const mapContainer = useRef(null);
 
     useEffect(() => {
-        if (!isTesting) {
             const map = new mapboxgl.Map({
                 container: mapContainer.current,
                 style: "mapbox://styles/mapbox/navigation-preview-night-v4",
@@ -19,7 +18,6 @@ const Map = ({ stopSubmit, isTesting }) => {
                 zoom: 12,
             });
             return () => map.remove();
-        }
     });
 
     return (
