@@ -29,7 +29,7 @@ Array [
          
         <a
           className="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
-          href="/"
+          href="/login"
           onBlur={[Function]}
           onClick={[Function]}
           onFocus={[Function]}
@@ -208,9 +208,10 @@ Array [
             align="right"
             className="MuiGrid-root MuiGrid-item"
           >
-            <button
+            <a
+              aria-disabled={false}
               className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
-              disabled={false}
+              href="/"
               onBlur={[Function]}
               onClick={[Function]}
               onDragLeave={[Function]}
@@ -223,6 +224,7 @@ Array [
               onTouchEnd={[Function]}
               onTouchMove={[Function]}
               onTouchStart={[Function]}
+              role="button"
               style={
                 Object {
                   "background": "#ffc617",
@@ -230,14 +232,13 @@ Array [
                 }
               }
               tabIndex={0}
-              type="button"
             >
               <span
                 className="MuiButton-label"
               >
                 Зарегистрироваться
               </span>
-            </button>
+            </a>
           </div>
         </div>
       </form>

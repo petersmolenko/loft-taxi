@@ -19,9 +19,10 @@ exports[`Header testing renders correctly 1`] = `
     <div
       className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-align-items-xs-center MuiGrid-justify-xs-flex-end MuiGrid-grid-xs-5"
     >
-      <button
+      <a
+        aria-disabled={false}
         className="MuiButtonBase-root MuiButton-root MuiButton-text"
-        disabled={false}
+        href="/map"
         onBlur={[Function]}
         onClick={[Function]}
         onDragLeave={[Function]}
@@ -34,18 +35,19 @@ exports[`Header testing renders correctly 1`] = `
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
         onTouchStart={[Function]}
+        role="button"
         tabIndex={0}
-        type="button"
       >
         <span
           className="MuiButton-label"
         >
           Карта
         </span>
-      </button>
-      <button
+      </a>
+      <a
+        aria-disabled={false}
         className="MuiButtonBase-root MuiButton-root MuiButton-text"
-        disabled={false}
+        href="/profile"
         onBlur={[Function]}
         onClick={[Function]}
         onDragLeave={[Function]}
@@ -58,15 +60,15 @@ exports[`Header testing renders correctly 1`] = `
         onTouchEnd={[Function]}
         onTouchMove={[Function]}
         onTouchStart={[Function]}
+        role="button"
         tabIndex={0}
-        type="button"
       >
         <span
           className="MuiButton-label"
         >
           Профиль
         </span>
-      </button>
+      </a>
       <button
         className="MuiButtonBase-root MuiButton-root MuiButton-text"
         disabled={false}

@@ -107,7 +107,6 @@ Array [
               className="MuiButtonBase-root MuiButton-root MuiButton-contained Mui-disabled MuiButton-fullWidth Mui-disabled"
               disabled={true}
               onBlur={[Function]}
-              onClick={[Function]}
               onDragLeave={[Function]}
               onFocus={[Function]}
               onKeyDown={[Function]}
@@ -133,26 +132,4 @@ Array [
     </div>
   </div>,
 ]
-`;
-
-exports[`Map testing renders correctly (not authorized) 1`] = `
-<div
-  className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
-  style={
-    Object {
-      "flexGrow": 1,
-    }
-  }
->
-  <h3
-    className="MuiTypography-root MuiTypography-h3"
-    style={
-      Object {
-        "color": "#ffc617",
-      }
-    }
-  >
-    The user is not logged in:(
-  </h3>
-</div>
 `;

@@ -29,7 +29,7 @@ Array [
          
         <a
           className="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
-          href="/"
+          href="/signup"
           onBlur={[Function]}
           onClick={[Function]}
           onFocus={[Function]}

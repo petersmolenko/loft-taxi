@@ -1,68 +1,74 @@
 import React from "react";
+import { Route, Switch, Redirect, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import Grid from "@material-ui/core/Grid";
 import Header from "./Header.jsx";
 import Login from "./Login.jsx";
 import Signup from "./Signup.jsx";
 import Map from "./Map.jsx";
 import Profile from "./Profile.jsx";
-import Grid from "@material-ui/core/Grid";
+import PropTypes from "prop-types";
 
-class App extends React.PureComponent {
-    state = {
-        route: "login",
-        // route: this.props.initRoute || 'loginDefault' //only for testing
-    };
+const App = ({ location, isLoggedIn }) => {
+    return (
+        <Grid
+            container
+            direction="column"
+            style={{
+                minHeight: "100vh",
+            }}
+            className="jss"
+        >
+            {isLoggedIn && <Header />}
 
-    setRoute = (route) => {
-        this.setState({
-            route: route,
-        });
-    };
-
-    pages = {
-        login: <Login setRoute={this.setRoute} />,
-        signup: <Signup setRoute={this.setRoute} />,
-        map: <Map stopSubmit={this.stopSubmit} />,
-        profile: <Profile stopSubmit={this.stopSubmit} />,
-    };
-
-    // pages = this.props.testPages || {loginDefault: <p>DefaulLogin</p>} //only for testing
-
-    stopSubmit = (e) => {
-        e.preventDefault();
-        console.log("Data submited");
-    };
-
-    render() {
-        return (
             <Grid
+                item
                 container
-                direction="column"
-                style={{
-                    minHeight: "100vh",
-                }}
-                className="jss"
+                justify={location.pathname === "/map" ? "flex-start" : "center"}
+                alignItems={location.pathname === "/map" ? "stretch" : "center"}
+                style={{ flexGrow: 1, position: "relative" }}
             >
-                {this.state.route !== "login" &&
-                this.state.route !== "signup" ? (
-                    <Header setRoute={this.setRoute} />
-                ) : null}
-
-                <Grid
-                    item
-                    container
-                    justify={
-                        this.state.route === "map" ? "flex-start" : "center"
-                    }
-                    alignItems={
-                        this.state.route === "map" ? "stretch" : "center"
-                    }
-                    style={{ flexGrow: 1, position: "relative" }}
-                >
-                    {this.pages[this.state.route]}
-                </Grid>
+                <Switch>
+                    <Route
+                        exact
+                        path="/login"
+                        render={() =>
+                            isLoggedIn ? <Redirect to="/map" /> : <Login />
+                        }
+                    />
+                    <Route
+                        exact
+                        path="/signup"
+                        render={() =>
+                            isLoggedIn ? <Redirect to="/map" /> : <Signup />
+                        }
+                    />
+                    <Route
+                        exact
+                        path="/map"
+                        render={() =>
+                            isLoggedIn ? <Map /> : <Redirect to="/login" />
+                        }
+                    />
+                    <Route
+                        exact
+                        path="/profile"
+                        render={() =>
+                            isLoggedIn ? <Profile /> : <Redirect to="/login" />
+                        }
+                    />
+                    <Redirect to="/map" exact />
+                </Switch>
             </Grid>
-        );
-    }
-}
+        </Grid>
+    );
+};
 
-export default App;
+Header.propTypes = {
+    location: PropTypes.object,
+    isLoggedIn: PropTypes.bool,
+};
+
+export default connect(({ auth }) => ({ isLoggedIn: auth.isLoggedIn }))(
+    withRouter(App)
+);

@@ -1,8 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import { render } from "@testing-library/react";
 import renderer from "react-test-renderer";
-import { AuthProvider, AuthContext } from "../../AuthContext";
 import Map from "../Map";
+import { Router } from "react-router-dom";
+import configureStore from "redux-mock-store";
+import { Provider } from "react-redux";
+import { createBrowserHistory } from "history";
+
+const mockStore = configureStore([]);
+
 jest.mock("mapbox-gl/dist/mapbox-gl", () => ({
     Map: jest.fn(function () {
         this.remove = () => {};
@@ -10,52 +16,36 @@ jest.mock("mapbox-gl/dist/mapbox-gl", () => ({
 }));
 
 describe("Map testing", () => {
-    it("renders correctly (not authorized)", () => {
-        const handler = jest.fn();
-        const tree = renderer
-            .create(
-                <AuthProvider>
-                    <Map stopSubmit={handler} />
-                </AuthProvider>
-            )
-            .toJSON();
-        expect(tree).toMatchSnapshot();
-    });
-
     it("renders correctly (authorized)", () => {
-        const handler = jest.fn();
-        const WrapperComponent = ({ isLogin, children }) => {
-            const { login } = useContext(AuthContext);
-            if (isLogin) login();
-            return <>{children}</>;
-        };
+        const store = mockStore({
+            auth: { isLoggedIn: false },
+        });
+        const history = createBrowserHistory();
 
         const tree = renderer
             .create(
-                <AuthProvider>
-                    <WrapperComponent isLogin={true}>
-                        <Map stopSubmit={handler} />
-                    </WrapperComponent>
-                </AuthProvider>
+                <Provider store={store}>
+                    <Router history={history}>
+                        <Map />
+                    </Router>
+                </Provider>
             )
             .toJSON();
         expect(tree).toMatchSnapshot();
     });
 
     it("callTaxi-button disabled", () => {
-        const handler = jest.fn();
-        const WrapperComponent = ({ isLogin, children }) => {
-            const { login } = useContext(AuthContext);
-            if (isLogin) login();
-            return <>{children}</>;
-        };
+        const store = mockStore({
+            auth: { isLoggedIn: false },
+        });
+        const history = createBrowserHistory();
 
         const { getByText } = render(
-            <AuthProvider>
-                <WrapperComponent isLogin={true}>
-                    <Map stopSubmit={handler} />
-                </WrapperComponent>
-            </AuthProvider>
+            <Provider store={store}>
+                <Router history={history}>
+                    <Map />
+                </Router>
+            </Provider>
         );
         expect(getByText("Вызвать такси")).toBeDisabled();
     });

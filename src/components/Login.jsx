@@ -1,5 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import logo from "../assets/logo-white.svg";
+import { connect } from "react-redux";
+import { loggedIn } from "../redux/modules/auth";
 import {
     Grid,
     Paper,
@@ -9,10 +11,9 @@ import {
     Button,
 } from "@material-ui/core";
 import PropTypes from "prop-types";
-import { AuthContext } from "../AuthContext.jsx";
+import { Link as LinkRoute } from "react-router-dom";
 
-const Login = ({ setRoute }) => {
-    const { login } = useContext(AuthContext);
+const Login = ({ login }) => {
     const [authLogin, setAuthLogin] = useState(null);
     const [authPassword, setAuthPassword] = useState(null);
 
@@ -38,10 +39,8 @@ const Login = ({ setRoute }) => {
                         Новый пользователь?{" "}
                         <Link
                             href="/"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                setRoute("signup");
-                            }}
+                            component={LinkRoute}
+                            to="/signup"
                             color="primary"
                         >
                             Зарегистрируйтесь
@@ -91,9 +90,7 @@ const Login = ({ setRoute }) => {
                                     }}
                                     data-testid="loginBtn"
                                     onClick={(e) => {
-                                        e.preventDefault();
                                         login(authLogin, authPassword);
-                                        setRoute("map");
                                     }}
                                 >
                                     Войти
@@ -108,7 +105,11 @@ const Login = ({ setRoute }) => {
 };
 
 Login.propTypes = {
-    setRoute: PropTypes.func,
+    login: PropTypes.func,
 };
 
-export default Login;
+export default connect(null, (dispatch) => ({
+    login: (email, password) => {
+        dispatch(loggedIn({ email, password }));
+    },
+}))(Login);
