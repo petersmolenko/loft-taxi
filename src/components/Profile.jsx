@@ -179,11 +179,10 @@ Profile.propTypes = {
     }),
 };
 
-export default connect(
-    (state) => ({ profile: state.profile }),
-    (dispatch) => ({
-        fetchProfile: (card) => {
-            dispatch(fetchProfile(card));
-        },
-    })
-)(Profile);
+const mapStateToProps = (state) => ({ profile: state.profile });
+const mapDispatchToProps = (dispatch) => ({
+    fetchProfile: (card) => {
+        dispatch(fetchProfile(card));
+    },
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

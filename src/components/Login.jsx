@@ -108,8 +108,11 @@ Login.propTypes = {
     login: PropTypes.func,
 };
 
-export default connect(null, (dispatch) => ({
+const mapStateToProps = null;
+const mapDispatchToProps = (dispatch) => ({
     login: (email, password) => {
         dispatch(loggedIn({ email, password }));
     },
-}))(Login);
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -45,8 +45,9 @@ Header.propTypes = {
     logout: PropTypes.func,
 };
 
-export default connect(null, (dispatch) => ({
-    logout: () => {
-        dispatch(loggedOut());
-    },
-}))(Header);
+const mapStateToProps = null;
+const mapDispatchToProps = (dispatch) => ({
+    logout: () => dispatch(loggedOut()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

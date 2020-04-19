@@ -157,6 +157,9 @@ Signup.propTypes = {
     signup: PropTypes.func,
 };
 
-export default connect(null, (dispatch) => ({
+const mapStateToProps = null;
+const mapDispatchToProps = (dispatch) => ({
     signup: (auth) => dispatch(signUp(auth)),
-}))(Signup);
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);

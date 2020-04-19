@@ -10,6 +10,7 @@ import Profile from "./Profile.jsx";
 import PropTypes from "prop-types";
 
 const App = ({ location, isLoggedIn }) => {
+    const isMap = location.pathname === "/map";
     return (
         <Grid
             container
@@ -24,8 +25,8 @@ const App = ({ location, isLoggedIn }) => {
             <Grid
                 item
                 container
-                justify={location.pathname === "/map" ? "flex-start" : "center"}
-                alignItems={location.pathname === "/map" ? "stretch" : "center"}
+                justify={isMap ? "flex-start" : "center"}
+                alignItems={isMap ? "stretch" : "center"}
                 style={{ flexGrow: 1, position: "relative" }}
             >
                 <Switch>
@@ -64,11 +65,12 @@ const App = ({ location, isLoggedIn }) => {
     );
 };
 
-Header.propTypes = {
+App.propTypes = {
     location: PropTypes.object,
     isLoggedIn: PropTypes.bool,
 };
 
-export default connect(({ auth }) => ({ isLoggedIn: auth.isLoggedIn }))(
-    withRouter(App)
-);
+const mapStateToProps = ({ auth }) => ({ isLoggedIn: auth.isLoggedIn });
+const mapDispatchToProps = null;
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));
