@@ -2,7 +2,7 @@ import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import renderer from "react-test-renderer";
 import Profile from "../Profile";
-import { fetchProfile } from "../../redux/modules/profile";
+import { putProfile } from "../../redux/modules/profile";
 import { Router } from "react-router-dom";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
@@ -15,11 +15,16 @@ describe("Profile testing", () => {
         const store = mockStore({
             auth: { isLoggedIn: true },
             profile: {
-                cardNumber: "0000 0000 0000 0000",
-                expiryDate: "12/20",
-                cardName: "Mark Kram",
-                cvc: "123",
-                error: null,
+                paymentInfo: {
+                    cardNumber: "0000 0000 0000 0000",
+                    expiryDate: "12/20",
+                    cardName: "Mark Kram",
+                    cvc: "123",
+                    error: null,
+                },
+            },
+            routes: {
+                addresses: ["address1", "address2"],
             },
         });
 
@@ -41,11 +46,12 @@ describe("Profile testing", () => {
         const store = mockStore({
             auth: { isLoggedIn: true },
             profile: {
-                cardNumber: "0000 0000 0000 0000",
-                expiryDate: "12/20",
-                cardName: "Mark Kram",
-                cvc: "123",
-                error: null,
+                paymentInfo: {
+                    cardNumber: "0000 0000 0000 0000",
+                    expiryDate: "12/20",
+                    cardName: "Mark Kram",
+                    cvc: "123",
+                },
             },
         });
         store.dispatch = jest.fn();
@@ -66,7 +72,7 @@ describe("Profile testing", () => {
         expect(store.dispatch).toHaveBeenCalledTimes(1);
 
         expect(store.dispatch).toHaveBeenCalledWith(
-            fetchProfile(store.getState().profile)
+            putProfile(store.getState().profile.paymentInfo)
         );
     });
 });

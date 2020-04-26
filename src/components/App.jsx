@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import {isLoggedIn} from '../redux/modules/auth';
 import Grid from "@material-ui/core/Grid";
 import Header from "./Header.jsx";
 import Login from "./Login.jsx";
@@ -70,7 +71,6 @@ App.propTypes = {
     isLoggedIn: PropTypes.bool,
 };
 
-const mapStateToProps = ({ auth }) => ({ isLoggedIn: auth.isLoggedIn });
-const mapDispatchToProps = null;
+const mapStateToProps = state => ({ isLoggedIn: isLoggedIn(state) });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));
+export default connect(mapStateToProps)(withRouter(App));

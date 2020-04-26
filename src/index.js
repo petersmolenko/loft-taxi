@@ -1,30 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import configureStore from "./redux/configureStore";
+import getStore from './redux/store';
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./components/App.jsx";
 import * as serviceWorker from "./serviceWorker";
 
-const store = configureStore(
-    localStorage.state
-        ? JSON.parse(localStorage.state)
-        : {
-              auth: { isLoggedIn: false, error: null },
-              profile: {
-                  cardNumber: "0000 0000 0000 0000",
-                  expiryDate: "12/20",
-                  cardName: "Mark Kram",
-                  cvc: "123",
-                  error: null
-              },
-          }
-);
-store.subscribe(() => {
-    localStorage.setItem("state", JSON.stringify(store.getState()));
-});
-store.subscribe(()=>console.log(store.getState()))
+
+const store = getStore();
 
 ReactDOM.render(
     <React.StrictMode>
