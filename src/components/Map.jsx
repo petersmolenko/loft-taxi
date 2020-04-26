@@ -8,7 +8,7 @@ import { fetchRoute, clearRoute } from "../redux/modules/routes";
 import { connect } from "react-redux";
 import { getPaymentInfo } from "../redux/modules/profile";
 import { getAddresses, getRoute, routeIsLoaded } from "../redux/modules/routes";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import mapboxgl from "mapbox-gl";
 mapboxgl.accessToken =
     "pk.eyJ1IjoicGV0ZXJzbW9sZW5rbyIsImEiOiJjazhydWVoY3UwYnV2M3F0bDV4ZXh1Z2N4In0.Dj8PKEOg2s4sE5YeGGygow";
@@ -21,17 +21,8 @@ const Map = class extends React.PureComponent {
 
     mapContainer = React.createRef();
 
-    handleWindowBeforeUnload = () => {
-        this.props.clearRoute();
-    };
-
     componentDidMount() {
-        window.addEventListener("beforeunload", this.handleWindowBeforeUnload);
-        if (this.props.profile) {
-            console.log("profile is here");
-        } else {
-            console.log("profile is not here");
-        }
+        this.props.clearRoute();
         this.map = new mapboxgl.Map({
             container: this.mapContainer.current,
             style: "mapbox://styles/mapbox/navigation-preview-night-v4",
@@ -47,12 +38,172 @@ const Map = class extends React.PureComponent {
     }
 
     componentWillUnmount() {
-        this.props.clearRoute();
         this.map.remove();
     }
 
-    render() {
+    renderRoutePreloader = () => (
+        <Grid item container align="center" justify="center">
+            <Typography
+                style={{ margin: "4rem" }}
+                variant="body1"
+                component="p"
+            >
+                Поиск маршрута...
+            </Typography>
+        </Grid>
+    );
+
+    renderOrderCompleteWindow = () => (
+        <Grid item>
+            <Typography className="AppForm_margin" variant="h4" component="h4">
+                Заказ размещен
+            </Typography>
+            <Typography
+                variant="body1"
+                component="p"
+                className="AppForm_margin"
+            >
+                Ваше такси уже едет к вам. Прибудет приблизительно через 10
+                минут.
+            </Typography>
+            <Button
+                variant="contained"
+                color="primary"
+                to="/map"
+                onClick={() => {
+                    if (this.map.getLayer("route"))
+                        this.map.removeLayer("route").removeSource("route");
+                    console.log("remove");
+                    this.props.clearRoute();
+                }}
+                style={{
+                    background: "#ffc617",
+                    color: "rgba(0, 0, 0, 0.87)",
+                }}
+            >
+                Сделать новый заказ
+            </Button>
+        </Grid>
+    );
+
+    renderOrderForm = () => {
         const isFilled = this.state.start && this.state.end;
+        return (
+            <form noValidate autoComplete="off">
+                <Grid item>
+                    <Autocomplete
+                        id="combo-box-demo"
+                        options={this.props.addresses.filter((address) => {
+                            if (
+                                address !== this.state.start &&
+                                address !== this.state.end
+                            ) {
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        })}
+                        onChange={(e, val) =>
+                            this.setState({
+                                ...this.state,
+                                start: val,
+                            })
+                        }
+                        getOptionSelected={(option) => option}
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                label="Откуда"
+                                className="AppForm_margin"
+                            />
+                        )}
+                    />
+                </Grid>
+                <Grid item>
+                    <Autocomplete
+                        id="combo-box-demo"
+                        options={this.props.addresses.filter((address) => {
+                            if (
+                                address !== this.state.start &&
+                                address !== this.state.end
+                            ) {
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        })}
+                        onChange={(e, val) =>
+                            this.setState({
+                                ...this.state,
+                                end: val,
+                            })
+                        }
+                        getOptionSelected={(option) => option}
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                label="Куда"
+                                className="AppForm_margin"
+                            />
+                        )}
+                    />
+                </Grid>
+                <Grid item>
+                    <Button
+                        variant="contained"
+                        onClick={() => {
+                            this.props.fetchRoute(this.state);
+                            this.setState({
+                                start: "",
+                                end: "",
+                            });
+                        }}
+                        fullWidth
+                        disabled={isFilled ? false : true}
+                        style={
+                            isFilled
+                                ? {
+                                      background: "#ffc617",
+                                      color: "rgba(0, 0, 0, 0.87)",
+                                  }
+                                : null
+                        }
+                    >
+                        Вызвать такси
+                    </Button>
+                </Grid>
+            </form>
+        );
+    };
+
+    renderNoPaymenDataWindow = () => (
+        <Grid item>
+            <Typography className="AppForm_margin" variant="h4" component="h4">
+                Заполните платежные данные
+            </Typography>
+            <Typography
+                variant="body1"
+                component="p"
+                className="AppForm_margin"
+            >
+                Укажите информацию о банковской карте, чтобы сделать заказ.
+            </Typography>
+            <Button
+                variant="contained"
+                color="primary"
+                to="/profile"
+                component={Link}
+                style={{
+                    background: "#ffc617",
+                    color: "rgba(0, 0, 0, 0.87)",
+                }}
+            >
+                Перейти в профиль
+            </Button>
+        </Grid>
+    );
+
+    render() {
         return (
             <>
                 <div
@@ -76,236 +227,21 @@ const Map = class extends React.PureComponent {
                             {this.props.profile ? (
                                 <>
                                     {this.props.isLoaded ? (
-                                        <Grid
-                                            item
-                                            container
-                                            align="center"
-                                            justify="center"
-                                        >
-                                            <Typography
-                                                style={{ margin: "4rem" }}
-                                                variant="body1"
-                                                component="p"
-                                            >
-                                                Поиск маршрута...
-                                            </Typography>
-                                        </Grid>
+                                        <>{this.renderRoutePreloader()}</>
                                     ) : (
                                         <>
                                             {this.props.route ? (
-                                                <Grid item>
-                                                    <Typography
-                                                        className="AppForm_margin"
-                                                        variant="h4"
-                                                        component="h4"
-                                                    >
-                                                        Заказ размещен
-                                                    </Typography>
-                                                    <Typography
-                                                        variant="body1"
-                                                        component="p"
-                                                        className="AppForm_margin"
-                                                    >
-                                                        Ваше такси уже едет к
-                                                        вам. Прибудет
-                                                        приблизительно через 10
-                                                        минут.
-                                                    </Typography>
-                                                    <Button
-                                                        variant="contained"
-                                                        color="primary"
-                                                        to="/map"
-                                                        onClick={() => {
-                                                            if (
-                                                                this.map.getLayer(
-                                                                    "route"
-                                                                )
-                                                            )
-                                                                this.map
-                                                                    .removeLayer(
-                                                                        "route"
-                                                                    )
-                                                                    .removeSource(
-                                                                        "route"
-                                                                    );
-                                                            console.log(
-                                                                "remove"
-                                                            );
-                                                            this.props.clearRoute();
-                                                        }}
-                                                        style={{
-                                                            background:
-                                                                "#ffc617",
-                                                            color:
-                                                                "rgba(0, 0, 0, 0.87)",
-                                                        }}
-                                                    >
-                                                        Сделать новый заказ
-                                                    </Button>
-                                                </Grid>
+                                                <>
+                                                    {this.renderOrderCompleteWindow()}
+                                                </>
                                             ) : (
-                                                <form
-                                                    noValidate
-                                                    autoComplete="off"
-                                                >
-                                                    {" "}
-                                                    <Grid item>
-                                                        <Autocomplete
-                                                            id="combo-box-demo"
-                                                            options={this.props.addresses.filter(
-                                                                (address) => {
-                                                                    if (
-                                                                        address !==
-                                                                            this
-                                                                                .state
-                                                                                .start &&
-                                                                        address !==
-                                                                            this
-                                                                                .state
-                                                                                .end
-                                                                    ) {
-                                                                        return true;
-                                                                    } else {
-                                                                        return false;
-                                                                    }
-                                                                }
-                                                            )}
-                                                            onChange={(
-                                                                e,
-                                                                val
-                                                            ) =>
-                                                                this.setState({
-                                                                    ...this
-                                                                        .state,
-                                                                    start: val,
-                                                                })
-                                                            }
-                                                            getOptionSelected={(
-                                                                option
-                                                            ) => option}
-                                                            renderInput={(
-                                                                params
-                                                            ) => (
-                                                                <TextField
-                                                                    {...params}
-                                                                    label="Откуда"
-                                                                    className="AppForm_margin"
-                                                                />
-                                                            )}
-                                                        />
-                                                    </Grid>
-                                                    <Grid item>
-                                                        <Autocomplete
-                                                            id="combo-box-demo"
-                                                            options={this.props.addresses.filter(
-                                                                (address) => {
-                                                                    if (
-                                                                        address !==
-                                                                            this
-                                                                                .state
-                                                                                .start &&
-                                                                        address !==
-                                                                            this
-                                                                                .state
-                                                                                .end
-                                                                    ) {
-                                                                        return true;
-                                                                    } else {
-                                                                        return false;
-                                                                    }
-                                                                }
-                                                            )}
-                                                            onChange={(
-                                                                e,
-                                                                val
-                                                            ) =>
-                                                                this.setState({
-                                                                    ...this
-                                                                        .state,
-                                                                    end: val,
-                                                                })
-                                                            }
-                                                            getOptionSelected={(
-                                                                option
-                                                            ) => option}
-                                                            renderInput={(
-                                                                params
-                                                            ) => (
-                                                                <TextField
-                                                                    {...params}
-                                                                    label="Куда"
-                                                                    className="AppForm_margin"
-                                                                />
-                                                            )}
-                                                        />
-                                                    </Grid>
-                                                    <Grid item>
-                                                        <Button
-                                                            variant="contained"
-                                                            onClick={() => {
-                                                                this.props.fetchRoute(
-                                                                    this.state
-                                                                );
-                                                                this.setState({
-                                                                    start: "",
-                                                                    end: "",
-                                                                });
-                                                            }}
-                                                            fullWidth
-                                                            disabled={
-                                                                isFilled
-                                                                    ? false
-                                                                    : true
-                                                            }
-                                                            style={
-                                                                isFilled
-                                                                    ? {
-                                                                          background:
-                                                                              "#ffc617",
-                                                                          color:
-                                                                              "rgba(0, 0, 0, 0.87)",
-                                                                      }
-                                                                    : null
-                                                            }
-                                                        >
-                                                            Вызвать такси
-                                                        </Button>
-                                                    </Grid>
-                                                </form>
+                                                <>{this.renderOrderForm()}</>
                                             )}
                                         </>
                                     )}
                                 </>
                             ) : (
-                                <Grid item>
-                                    <Typography
-                                        className="AppForm_margin"
-                                        variant="h4"
-                                        component="h4"
-                                    >
-                                        Заполните платежные данные
-                                    </Typography>
-                                    <Typography
-                                        variant="body1"
-                                        component="p"
-                                        className="AppForm_margin"
-                                    >
-                                        Укажите информацию о банковской карте,
-                                        чтобы сделать заказ.
-                                    </Typography>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        to="/profile"
-                                        component={Link}
-                                        style={{
-                                            background: "#ffc617",
-                                            color: "rgba(0, 0, 0, 0.87)",
-                                        }}
-                                    >
-                                        Перейти в профиль
-                                    </Button>
-                                </Grid>
+                                <>{this.renderNoPaymenDataWindow()}</>
                             )}
                         </Grid>
                     </Paper>
@@ -315,12 +251,27 @@ const Map = class extends React.PureComponent {
     }
 };
 
+Map.propTypes = {
+    fetchRoute: PropTypes.func,
+    clearRoute: PropTypes.func,
+    addresses: PropTypes.array,
+    route: PropTypes.array,
+    isLoaded: PropTypes.bool,
+    profile: PropTypes.shape({
+        cardNumber: PropTypes.string,
+        expiryDate: PropTypes.string,
+        cardName: PropTypes.string,
+        cvc: PropTypes.string,
+    }),
+};
+
 const mapStateToProps = (state) => ({
     addresses: getAddresses(state),
     profile: getPaymentInfo(state),
     route: getRoute(state),
     isLoaded: routeIsLoaded(state),
 });
+
 const mapDispatchToProps = (dispatch) => ({
     fetchRoute: (route) => {
         dispatch(fetchRoute(route));

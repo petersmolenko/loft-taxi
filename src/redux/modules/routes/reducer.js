@@ -9,17 +9,27 @@ import {
 export default (state = {}, action) => {
     switch (action.type) {
         case clearRoute.toString():
-                return { ...state, route: null };
+            return { ...state, route: null };
         case fetchRoute.toString():
             return { ...state, isLoaded: true };
         case fetchRouteSuccess.toString():
-            return {...state, route: action.payload, error: null, isLoaded: false };
+            return {
+                ...state,
+                route: action.payload,
+                error: null,
+                isLoaded: false,
+            };
         case fetchRouteFailure.toString():
-            return {...state, route: null, error: action.payload, isLoaded: false };
+            return {
+                ...state,
+                route: null,
+                error: action.payload,
+                isLoaded: false,
+            };
         case fetchAddressListSuccess.toString():
-            return { ...state, ...action.payload, error: null};
+            return { ...state, ...action.payload, error: null };
         case fetchAddressListFailure.toString():
-            return { ...state, error: action.payload};
+            return { ...state, error: action.payload };
         default:
             return state;
     }

@@ -1,4 +1,5 @@
 import { API_URL } from "./constants";
+import qs from 'qs';
 
 const postApi = async (action, postData) => {
     const resp = await fetch(`${API_URL}/${action}`, {
@@ -13,7 +14,8 @@ const postApi = async (action, postData) => {
 }
 
 const getApi = async (action, getData={}) => {
-    const params = Object.entries(getData).reduce((acc, item, i, arr)=>acc + `${item[0]}=${item[1]}`+((i!==arr.length-1)?'&':''), '');
+    // const params = Object.entries(getData).reduce((acc, item, i, arr)=>acc + `${item[0]}=${item[1]}`+((i!==arr.length-1)?'&':''), '');
+    const params = qs.stringify(getData);
     const resp = await fetch(`${API_URL}/${action}?${params}`)
     return await resp.json()
 }
