@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Grid, Paper, Button } from "@material-ui/core";
 import logo from "../assets/logo.svg";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { loggedOut } from "../redux/modules/auth";
 import PropTypes from "prop-types";
-import { AuthContext } from "../AuthContext.jsx";
 
-let Header = ({ setRoute }) => {
-    const { logout } = useContext(AuthContext);
-
+let Header = ({ logout }) => {
     return (
         <>
             <Paper elevation={4} square>
@@ -21,14 +21,15 @@ let Header = ({ setRoute }) => {
                         justify="flex-end"
                         alignItems="center"
                     >
-                        <Button onClick={() => setRoute("map")}>Карта</Button>
-                        <Button onClick={() => setRoute("profile")}>
+                        <Button component={Link} to="/map">
+                            Карта
+                        </Button>
+                        <Button component={Link} to="/profile">
                             Профиль
                         </Button>
                         <Button
                             onClick={() => {
                                 logout();
-                                setRoute("login");
                             }}
                         >
                             Выйти
@@ -41,7 +42,12 @@ let Header = ({ setRoute }) => {
 };
 
 Header.propTypes = {
-    setRoute: PropTypes.func,
+    logout: PropTypes.func,
 };
 
-export default Header;
+const mapStateToProps = null;
+const mapDispatchToProps = (dispatch) => ({
+    logout: () => dispatch(loggedOut()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

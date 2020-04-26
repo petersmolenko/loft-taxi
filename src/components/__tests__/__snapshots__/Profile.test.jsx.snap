@@ -67,8 +67,8 @@ exports[`Profile testing renders correctly (authorized) 1`] = `
                 className="MuiFormControl-root MuiTextField-root AppForm_margin MuiFormControl-fullWidth"
               >
                 <label
-                  className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated Mui-required Mui-required"
-                  data-shrink={false}
+                  className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled Mui-required Mui-required"
+                  data-shrink={true}
                   htmlFor="userCardNum"
                   id="userCardNum-label"
                 >
@@ -96,6 +96,7 @@ exports[`Profile testing renders correctly (authorized) 1`] = `
                     onFocus={[Function]}
                     required={true}
                     type="text"
+                    value="0000 0000 0000 0000"
                   />
                 </div>
               </div>
@@ -103,8 +104,8 @@ exports[`Profile testing renders correctly (authorized) 1`] = `
                 className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
               >
                 <label
-                  className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated Mui-required Mui-required"
-                  data-shrink={false}
+                  className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled Mui-required Mui-required"
+                  data-shrink={true}
                   htmlFor="userCardDuration"
                   id="userCardDuration-label"
                 >
@@ -132,6 +133,7 @@ exports[`Profile testing renders correctly (authorized) 1`] = `
                     onFocus={[Function]}
                     required={true}
                     type="text"
+                    value="12/20"
                   />
                 </div>
               </div>
@@ -152,8 +154,8 @@ exports[`Profile testing renders correctly (authorized) 1`] = `
                 className="MuiFormControl-root MuiTextField-root AppForm_margin MuiFormControl-fullWidth"
               >
                 <label
-                  className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated Mui-required Mui-required"
-                  data-shrink={false}
+                  className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled Mui-required Mui-required"
+                  data-shrink={true}
                   htmlFor="userCardHolder"
                   id="userCardHolder-label"
                 >
@@ -181,6 +183,7 @@ exports[`Profile testing renders correctly (authorized) 1`] = `
                     onFocus={[Function]}
                     required={true}
                     type="text"
+                    value="Mark Kram"
                   />
                 </div>
               </div>
@@ -188,8 +191,8 @@ exports[`Profile testing renders correctly (authorized) 1`] = `
                 className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
               >
                 <label
-                  className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated Mui-required Mui-required"
-                  data-shrink={false}
+                  className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled Mui-required Mui-required"
+                  data-shrink={true}
                   htmlFor="userCardCVC"
                   id="userCardCVC-label"
                 >
@@ -217,6 +220,7 @@ exports[`Profile testing renders correctly (authorized) 1`] = `
                     onFocus={[Function]}
                     required={true}
                     type="text"
+                    value="123"
                   />
                 </div>
               </div>
@@ -231,7 +235,7 @@ exports[`Profile testing renders correctly (authorized) 1`] = `
             className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
             disabled={false}
             onBlur={[Function]}
-            onClick={[MockFunction]}
+            onClick={[Function]}
             onDragLeave={[Function]}
             onFocus={[Function]}
             onKeyDown={[Function]}
@@ -256,35 +260,10 @@ exports[`Profile testing renders correctly (authorized) 1`] = `
             >
               Сохранить
             </span>
-            <span
-              className="MuiTouchRipple-root"
-            />
           </button>
         </div>
       </div>
     </form>
   </div>
-</div>
-`;
-
-exports[`Profile testing renders correctly (not authorized) 1`] = `
-<div
-  className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
-  style={
-    Object {
-      "flexGrow": 1,
-    }
-  }
->
-  <h3
-    className="MuiTypography-root MuiTypography-h3"
-    style={
-      Object {
-        "color": "#ffc617",
-      }
-    }
-  >
-    The user is not logged in:(
-  </h3>
 </div>
 `;
