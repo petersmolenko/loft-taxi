@@ -19,6 +19,12 @@ describe("Map testing", () => {
     it("renders correctly (authorized)", () => {
         const store = mockStore({
             auth: { isLoggedIn: false },
+            routes: {
+                addresses: ['address1', 'address2']
+            },
+            profile: {
+                paymentInfo: {info: 'info'}
+            }
         });
         const history = createBrowserHistory();
 
@@ -32,21 +38,5 @@ describe("Map testing", () => {
             )
             .toJSON();
         expect(tree).toMatchSnapshot();
-    });
-
-    it("callTaxi-button disabled", () => {
-        const store = mockStore({
-            auth: { isLoggedIn: false },
-        });
-        const history = createBrowserHistory();
-
-        const { getByText } = render(
-            <Provider store={store}>
-                <Router history={history}>
-                    <Map />
-                </Router>
-            </Provider>
-        );
-        expect(getByText("Вызвать такси")).toBeDisabled();
     });
 });

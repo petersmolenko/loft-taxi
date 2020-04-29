@@ -53,11 +53,17 @@ describe("App testing", () => {
         const store = mockStore({
             auth: { isLoggedIn: true },
             profile: {
-                cardNumber: "0000 0000 0000 0000",
-                expiryDate: "12/20",
-                cardName: "Mark Kram",
-                cvc: "123",
-                error: null,
+                paymentInfo: {
+                    cardNumber: "0000 0000 0000 0000",
+                    expiryDate: "12/20",
+                    cardName: "Mark Kram",
+                    cvc: "123",
+                    error: null,
+                },
+            },
+            routes: {
+                route: null,
+                addresses: ["address1"],
             },
         });
         const history = createBrowserHistory();

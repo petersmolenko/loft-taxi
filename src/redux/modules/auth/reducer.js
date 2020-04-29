@@ -7,7 +7,7 @@ import {
 export default (state = {}, action) => {
     switch (action.type) {
         case loggedOut.toString():
-            return { ...state, isLoggedIn: false };
+            return { ...state, isLoggedIn: false,  };
         case loggedInSuccess.toString():
             return { ...state, isLoggedIn: true, token: action.payload, error: null };
         case loggedInFailure.toString():
