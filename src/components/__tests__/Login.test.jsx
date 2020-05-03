@@ -6,9 +6,18 @@ import { Router } from "react-router-dom";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 import { createBrowserHistory } from "history";
-import { loggedIn } from "../../redux/modules/auth";
+import { clearErrors } from "../../redux/modules/auth";
 
 const mockStore = configureStore([]);
+const mutationObserverMock = jest.fn(function MutationObserver(callback) {
+    this.observe = jest.fn();
+    this.disconnect = jest.fn();
+    // Optionally add a trigger() method to manually trigger a change
+    this.trigger = (mockedMutationsList) => {
+        callback(mockedMutationsList, this);
+    };
+});
+global.MutationObserver = mutationObserverMock;
 
 describe("Login testing", () => {
     it("renders correctly", () => {
@@ -58,12 +67,11 @@ describe("Login testing", () => {
                 </Router>
             </Provider>
         );
+
+        expect(store.dispatch).toHaveBeenCalledTimes(1);
+        expect(store.dispatch).toHaveBeenCalledWith(clearErrors());
         fireEvent.click(getByTestId("loginBtn"));
         expect(store.dispatch).toHaveBeenCalledTimes(1);
-
-        expect(store.dispatch).toHaveBeenCalledWith(
-            loggedIn({ email: null, password: null })
-        );
     });
 
     it("change form fields", () => {

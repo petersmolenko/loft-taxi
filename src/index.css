@@ -12,18 +12,6 @@ code {
     monospace;
 }
 
-#root {
-    min-height: 100vh;
-    min-width: 100vw;
-}
-
-.jss {
-    background-image: url(./assets/Main_background.jpg);
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-}
-
 .MainLogo {
     width: 10rem;
 }

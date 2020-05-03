@@ -6,11 +6,18 @@ import { Router } from "react-router-dom";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 import { createBrowserHistory } from "history";
-import { signUp } from "../../redux/modules/auth";
+import { clearErrors } from "../../redux/modules/auth";
 
 const mockStore = configureStore([]);
-
-describe("Login testing", () => {
+const mutationObserverMock = jest.fn(function MutationObserver(callback) {
+    this.observe = jest.fn();
+    this.disconnect = jest.fn();
+    this.trigger = (mockedMutationsList) => {
+        callback(mockedMutationsList, this);
+    };
+});
+global.MutationObserver = mutationObserverMock;
+describe("Signup testing", () => {
     it("renders correctly", () => {
         const store = mockStore({
             auth: { isLoggedIn: false },
@@ -58,12 +65,10 @@ describe("Login testing", () => {
                 </Router>
             </Provider>
         );
+        expect(store.dispatch).toHaveBeenCalledTimes(1);
+        expect(store.dispatch).toHaveBeenCalledWith(clearErrors());
         fireEvent.click(getByText("Зарегистрироваться"));
         expect(store.dispatch).toHaveBeenCalledTimes(1);
-
-        expect(store.dispatch).toHaveBeenCalledWith(
-            signUp({ email: "", password: "", name: "", surname: "" })
-        );
     });
 
     it("change form fields", () => {
@@ -87,10 +92,10 @@ describe("Login testing", () => {
             target: { value: "firstname" },
         });
         expect(getByTestId("userFirstNameField").value).toBe("firstname");
-        fireEvent.change(getByTestId("userSurenameField"), {
+        fireEvent.change(getByTestId("userSurnameField"), {
             target: { value: "surename" },
         });
-        expect(getByTestId("userSurenameField").value).toBe("surename");
+        expect(getByTestId("userSurnameField").value).toBe("surename");
         fireEvent.change(getByTestId("userPasswordField"), {
             target: { value: "password" },
         });

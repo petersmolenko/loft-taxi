@@ -30,9 +30,8 @@ Array [
       >
         <form
           autoComplete="off"
-          noValidate={true}
+          onSubmit={[Function]}
         >
-           
           <div
             className="MuiGrid-root MuiGrid-item"
           >
@@ -46,7 +45,12 @@ Array [
               role="combobox"
             >
               <div
-                className="MuiFormControl-root MuiTextField-root AppForm_margin MuiFormControl-fullWidth"
+                className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+                style={
+                  Object {
+                    "marginBottom": "1.6rem",
+                  }
+                }
               >
                 <label
                   className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
@@ -71,6 +75,7 @@ Array [
                     className="MuiInputBase-input MuiInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd"
                     disabled={false}
                     id="combo-box-demo"
+                    name="startCurrent"
                     onAnimationStart={[Function]}
                     onBlur={[Function]}
                     onChange={[Function]}
@@ -172,13 +177,17 @@ Array [
               role="combobox"
             >
               <div
-                className="MuiFormControl-root MuiTextField-root AppForm_margin MuiFormControl-fullWidth"
+                className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+                style={
+                  Object {
+                    "marginBottom": "1.6rem",
+                  }
+                }
               >
                 <label
                   className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
                   data-shrink={false}
-                  htmlFor="combo-box-demo"
-                  id="combo-box-demo-label"
+                  id="undefined-label"
                 >
                   Куда
                 </label>
@@ -196,7 +205,7 @@ Array [
                     autoFocus={false}
                     className="MuiInputBase-input MuiInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd"
                     disabled={false}
-                    id="combo-box-demo"
+                    name="endCurrent"
                     onAnimationStart={[Function]}
                     onBlur={[Function]}
                     onChange={[Function]}
@@ -292,7 +301,6 @@ Array [
               className="MuiButtonBase-root MuiButton-root MuiButton-contained Mui-disabled MuiButton-fullWidth Mui-disabled"
               disabled={true}
               onBlur={[Function]}
-              onClick={[Function]}
               onDragLeave={[Function]}
               onFocus={[Function]}
               onKeyDown={[Function]}
@@ -305,7 +313,7 @@ Array [
               onTouchStart={[Function]}
               style={null}
               tabIndex={-1}
-              type="button"
+              type="submit"
             >
               <span
                 className="MuiButton-label"

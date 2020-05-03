@@ -7,25 +7,47 @@ import {
     TextField,
     Button,
 } from "@material-ui/core";
+
+import InputMask from "react-input-mask";
 import cardLogo from "../assets/mc_symbol.svg";
 import { Link } from "react-router-dom";
 import { putProfile } from "../redux/modules/profile";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { getPaymentInfo, profileIsLoaded } from "../redux/modules/profile";
+import { useSelector, useDispatch } from "react-redux";
+import {
+    getPaymentInfo,
+    profileIsLoaded as isProfileLoaded,
+} from "../redux/modules/profile";
+import { useForm } from "react-hook-form";
 
-const Profile = ({ putProfile, profile, profileIsLoaded }) => {
-    const [card, setCard] = useState(
-        profile
-            ? profile
-            : {
-                  cardNumber: "",
-                  expiryDate: "",
-                  cardName: "",
-                  cvc: "",
-              }
-    );
+const Profile = () => {
+    const profile = useSelector(getPaymentInfo);
+    const profileIsLoaded = useSelector(isProfileLoaded);
     const [isSubmit, submit] = useState(false);
+    const dispatch = useDispatch();
+
+    const { register, handleSubmit, errors } = useForm({
+        defaultValues: profile
+            ? {
+                  cardNumber: profile.cardNumber,
+                  cardHolder: profile.cardName,
+                  cardExpiryDate: profile.expiryDate,
+                  cardCVC: profile.cvc,
+              }
+            : null,
+    });
+
+    const onSubmit = (data) => {
+        const {
+            cardHolder: cardName,
+            cardNumber,
+            cardExpiryDate: expiryDate,
+            cardCVC: cvc,
+        } = data;
+
+        dispatch(putProfile({ cardName, cardNumber, expiryDate, cvc }));
+        submit(true);
+    };
+
     const renderPaymentInfoUpdateWindow = () => (
         <>
             <Typography
@@ -51,7 +73,7 @@ const Profile = ({ putProfile, profile, profileIsLoaded }) => {
     );
 
     const renderPaymentInfoForm = () => (
-        <form noValidate autoComplete="off">
+        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
             <Grid container justify="center" direction="column">
                 <Grid
                     item
@@ -83,33 +105,61 @@ const Profile = ({ putProfile, profile, profileIsLoaded }) => {
                                     alt="card logo"
                                 />
                             </div>
+                            {/*  */}
+                            <InputMask
+                                mask="9999 9999 9999 9999"
+                                name="cardNumber"
+                            >
+                                <TextField
+                                    label="Номер карты"
+                                    name="cardNumber"
+                                    style={{
+                                        marginBottom: errors.cardNumber
+                                            ? "0.225rem"
+                                            : "1.6rem",
+                                    }}
+                                    error={!!errors.cardNumber}
+                                    helperText={
+                                        errors.cardNumber &&
+                                        errors.cardNumber.message
+                                    }
+                                    fullWidth={true}
+                                    inputRef={register({
+                                        required: {
+                                            value: true,
+                                            message:
+                                                "Поле должно быть заполено!",
+                                        },
+                                    })}
+                                />
+                            </InputMask>
+                            <InputMask
+                                mask="99/99"
+                                name="cardExpiryDate"
+                            >
                             <TextField
-                                required
-                                id="userCardNum"
-                                label="Номер карты"
-                                className="AppForm_margin"
-                                fullWidth
-                                value={card.cardNumber}
-                                onChange={(e) =>
-                                    setCard({
-                                        ...card,
-                                        cardNumber: e.target.value,
-                                    })
-                                }
-                            />
-                            <TextField
-                                required
-                                id="userCardDuration"
                                 label="Срок действия"
-                                value={card.expiryDate}
-                                onChange={(e) =>
-                                    setCard({
-                                        ...card,
-                                        expiryDate: e.target.value,
-                                    })
+                                name="cardExpiryDate"
+                                style={{
+                                    marginBottom: errors.cardExpiryDate
+                                        ? "0.225rem"
+                                        : "1.6rem",
+                                }}
+                                error={!!errors.cardExpiryDate}
+                                helperText={
+                                    errors.cardExpiryDate &&
+                                    errors.cardExpiryDate.message
                                 }
-                                fullWidth
+                                fullWidth={true}
+                                inputRef={register({
+                                    required: {
+                                        value: true,
+                                        message: "Поле должно быть заполено!",
+                                    },
+                                })}
                             />
+                            </InputMask>
+                           
                         </Paper>
                     </Grid>
                     <Grid item xs={6}>
@@ -120,31 +170,50 @@ const Profile = ({ putProfile, profile, profileIsLoaded }) => {
                             }}
                         >
                             <TextField
-                                required
-                                id="userCardHolder"
                                 label="Имя владельца"
-                                className="AppForm_margin"
-                                value={card.cardName}
-                                onChange={(e) => {
-                                    setCard({
-                                        ...card,
-                                        cardName: e.target.value,
-                                    });
+                                name="cardHolder"
+                                style={{
+                                    marginBottom: errors.cardHolder
+                                        ? "0.225rem"
+                                        : "1.6rem",
                                 }}
-                                fullWidth
+                                error={!!errors.cardHolder}
+                                helperText={
+                                    errors.cardHolder &&
+                                    errors.cardHolder.message
+                                }
+                                fullWidth={true}
+                                inputRef={register({
+                                    required: {
+                                        value: true,
+                                        message: "Поле должно быть заполено!",
+                                    },
+                                })}
                             />
                             <TextField
-                                required
-                                id="userCardCVC"
-                                value={card.cvc}
-                                onChange={(e) =>
-                                    setCard({
-                                        ...card,
-                                        cvc: e.target.value,
-                                    })
-                                }
                                 label="CVC"
-                                fullWidth
+                                name="cardCVC"
+                                style={{
+                                    marginBottom: errors.cardCVC
+                                        ? "0.225rem"
+                                        : "1.6rem",
+                                }}
+                                error={!!errors.cardCVC}
+                                helperText={
+                                    errors.cardCVC && errors.cardCVC.message
+                                }
+                                fullWidth={true}
+                                inputRef={register({
+                                    required: {
+                                        value: true,
+                                        message: "Поле должно быть заполено!",
+                                    },
+                                    pattern: {
+                                        value: /^\d{3}$/,
+                                        message:
+                                            "Поле должно содержать 3 цифры",
+                                    },
+                                })}
                             />
                         </Paper>
                     </Grid>
@@ -153,10 +222,7 @@ const Profile = ({ putProfile, profile, profileIsLoaded }) => {
                     <Button
                         variant="contained"
                         color="primary"
-                        onClick={() => {
-                            putProfile(card);
-                            submit(true);
-                        }}
+                        type="submit"
                         style={{
                             background: "#ffc617",
                             color: "rgba(0, 0, 0, 0.87)",
@@ -201,25 +267,4 @@ const Profile = ({ putProfile, profile, profileIsLoaded }) => {
     );
 };
 
-Profile.propTypes = {
-    putProfile: PropTypes.func,
-    profileIsLoaded: PropTypes.bool,
-    profile: PropTypes.shape({
-        cardNumber: PropTypes.string,
-        expiryDate: PropTypes.string,
-        cardName: PropTypes.string,
-        cvc: PropTypes.string,
-    }),
-};
-
-const mapStateToProps = (state) => ({
-    profile: getPaymentInfo(state),
-    profileIsLoaded: profileIsLoaded(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    putProfile: (card) => {
-        dispatch(putProfile(card));
-    },
-});
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default Profile;

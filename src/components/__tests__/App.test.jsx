@@ -1,4 +1,3 @@
-//!!! need to uncomment properties rote and pages in App.js !!!
 import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import configureStore from "redux-mock-store";
@@ -14,8 +13,20 @@ jest.mock("mapbox-gl/dist/mapbox-gl", () => ({
 }));
 
 const mockStore = configureStore([]);
+const mutationObserverMock = jest.fn(function MutationObserver(callback) {
+    this.observe = jest.fn();
+    this.disconnect = jest.fn();
+    // Optionally add a trigger() method to manually trigger a change
+    this.trigger = (mockedMutationsList) => {
+        callback(mockedMutationsList, this);
+    };
+});
+global.MutationObserver = mutationObserverMock;
 
 describe("App testing", () => {
+    afterAll(() => {
+        global.MutationObserver = {};
+    });
     it("login page load", () => {
         const store = mockStore({
             auth: { isLoggedIn: false },

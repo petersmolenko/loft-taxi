@@ -1,47 +1,94 @@
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Grid, Paper, Button, TextField, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { drawRoute } from "../shared/drawRoute.js";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { fetchRoute, clearRoute } from "../redux/modules/routes";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { getPaymentInfo } from "../redux/modules/profile";
 import { getAddresses, getRoute, routeIsLoaded } from "../redux/modules/routes";
-import PropTypes from "prop-types";
+import { useForm } from "react-hook-form";
 import mapboxgl from "mapbox-gl";
 mapboxgl.accessToken =
     "pk.eyJ1IjoicGV0ZXJzbW9sZW5rbyIsImEiOiJjazhydWVoY3UwYnV2M3F0bDV4ZXh1Z2N4In0.Dj8PKEOg2s4sE5YeGGygow";
 
-const Map = class extends React.PureComponent {
-    state = {
-        start: "",
-        end: "",
+const Map = () => {
+    const addresses = useSelector(getAddresses);
+    const route = useSelector(getRoute);
+    const profile = useSelector(getPaymentInfo);
+    const isLoaded = useSelector(routeIsLoaded);
+    const mapContainer = useRef(null);
+    const [formFilled, setFormFilled] = useState(false);
+    const map = useRef(null);
+    const dispatch = useDispatch();
+    const { register, handleSubmit, errors, getValues, setValue } = useForm();
+
+    const onSubmit = (data) => {
+        const { startField: start, endField: end } = data;
+        dispatch(fetchRoute({ start, end }));
     };
 
-    mapContainer = React.createRef();
+    useEffect(() => {
+        if (map.current) {
+            if (route && !map.current.getLayer("route")) {
+                drawRoute(map.current, route);
+            }
+        }
+    });
 
-    componentDidMount() {
-        this.props.clearRoute();
-        this.map = new mapboxgl.Map({
-            container: this.mapContainer.current,
+    useEffect(() => {
+        dispatch(clearRoute());
+        map.current = new mapboxgl.Map({
+            container: mapContainer.current,
             style: "mapbox://styles/mapbox/navigation-preview-night-v4",
             center: [30.31, 59.95],
             zoom: 12,
         });
-    }
 
-    componentDidUpdate() {
-        if (this.props.route && !this.map.getLayer("route")) {
-            drawRoute(this.map, this.props.route);
-        }
-    }
+        return () => map.current.remove();
+        // eslint-disable-next-line
+    }, []);
 
-    componentWillUnmount() {
-        this.map.remove();
-    }
+    useEffect(() => {
+        register(
+            { name: "startField" },
+            {
+                required: {
+                    value: true,
+                    message: "Поле должно быть заполено!",
+                },
+            }
+        );
+        register(
+            { name: "endField" },
+            {
+                required: {
+                    value: true,
+                    message: "Поле должно быть заполено!",
+                },
+            }
+        );
+        const { startCurrent, endCurrent } = getValues();
+        if (startCurrent) setValue("startField", startCurrent);
+        if (endCurrent) setValue("endField", endCurrent);
+    });
 
-    renderRoutePreloader = () => (
+    const filterOptions = (options, state) => {
+        const curVal = state.inputValue;
+        const { startField, endField } = getValues();
+        return options.filter((option) => {
+            if (
+                option !== startField &&
+                option !== endField &&
+                option.toLowerCase().includes(curVal)
+            )
+                return true;
+            else return false;
+        });
+    };
+
+    const renderRoutePreloader = () => (
         <Grid item container align="center" justify="center">
             <Typography
                 style={{ margin: "4rem" }}
@@ -53,7 +100,7 @@ const Map = class extends React.PureComponent {
         </Grid>
     );
 
-    renderOrderCompleteWindow = () => (
+    const renderOrderCompleteWindow = () => (
         <Grid item>
             <Typography className="AppForm_margin" variant="h4" component="h4">
                 Заказ размещен
@@ -69,12 +116,11 @@ const Map = class extends React.PureComponent {
             <Button
                 variant="contained"
                 color="primary"
-                to="/map"
                 onClick={() => {
-                    if (this.map.getLayer("route"))
-                        this.map.removeLayer("route").removeSource("route");
-                    console.log("remove");
-                    this.props.clearRoute();
+                    if (map.current.getLayer("route"))
+                        map.current.removeLayer("route").removeSource("route");
+                    dispatch(clearRoute());
+                    setFormFilled(false);
                 }}
                 style={{
                     background: "#ffc617",
@@ -86,64 +132,72 @@ const Map = class extends React.PureComponent {
         </Grid>
     );
 
-    renderOrderForm = () => {
-        const isFilled = this.state.start && this.state.end;
+    const renderOrderForm = () => {
         return (
-            <form noValidate autoComplete="off">
+            <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
                 <Grid item>
                     <Autocomplete
                         id="combo-box-demo"
-                        options={this.props.addresses.filter((address) => {
-                            if (
-                                address !== this.state.start &&
-                                address !== this.state.end
-                            ) {
-                                return true;
+                        options={addresses}
+                        filterOptions={filterOptions}
+                        onChange={(e, data) => {
+                            setValue("startField", data);
+                            const { startField, endField } = getValues();
+                            if (startField && endField) {
+                                if (!formFilled) setFormFilled(true);
                             } else {
-                                return false;
+                                if (formFilled) setFormFilled(false);
                             }
-                        })}
-                        onChange={(e, val) =>
-                            this.setState({
-                                ...this.state,
-                                start: val,
-                            })
-                        }
-                        getOptionSelected={(option) => option}
+                        }}
                         renderInput={(params) => (
                             <TextField
                                 {...params}
+                                name="startCurrent"
+                                inputRef={register()}
                                 label="Откуда"
-                                className="AppForm_margin"
+                                helperText={
+                                    errors.startField &&
+                                    errors.startField.message
+                                }
+                                error={!!errors.startField}
+                                style={{
+                                    marginBottom: errors.startField
+                                        ? "0.225rem"
+                                        : "1.6rem",
+                                }}
                             />
                         )}
                     />
                 </Grid>
                 <Grid item>
                     <Autocomplete
-                        id="combo-box-demo"
-                        options={this.props.addresses.filter((address) => {
-                            if (
-                                address !== this.state.start &&
-                                address !== this.state.end
-                            ) {
-                                return true;
+                        options={addresses}
+                        onChange={(e, data) => {
+                            setValue("endField", data);
+                            const { startField, endField } = getValues();
+                            if (startField && endField) {
+                                if (!formFilled) setFormFilled(true);
                             } else {
-                                return false;
+                                if (formFilled) setFormFilled(false);
                             }
-                        })}
-                        onChange={(e, val) =>
-                            this.setState({
-                                ...this.state,
-                                end: val,
-                            })
-                        }
-                        getOptionSelected={(option) => option}
+                        }}
+                        filterOptions={filterOptions}
                         renderInput={(params) => (
                             <TextField
                                 {...params}
+                                name="endCurrent"
+                                inputRef={register()}
                                 label="Куда"
-                                className="AppForm_margin"
+                                helperText={
+                                    errors.endField && errors.endField.message
+                                }
+                                error={!!errors.endField}
+                                fullWidth={true}
+                                style={{
+                                    marginBottom: errors.endField
+                                        ? "0.225rem"
+                                        : "1.6rem",
+                                }}
                             />
                         )}
                     />
@@ -151,17 +205,11 @@ const Map = class extends React.PureComponent {
                 <Grid item>
                     <Button
                         variant="contained"
-                        onClick={() => {
-                            this.props.fetchRoute(this.state);
-                            this.setState({
-                                start: "",
-                                end: "",
-                            });
-                        }}
+                        type="submit"
                         fullWidth
-                        disabled={isFilled ? false : true}
+                        disabled={formFilled ? false : true}
                         style={
-                            isFilled
+                            formFilled
                                 ? {
                                       background: "#ffc617",
                                       color: "rgba(0, 0, 0, 0.87)",
@@ -176,7 +224,7 @@ const Map = class extends React.PureComponent {
         );
     };
 
-    renderNoPaymenDataWindow = () => (
+    const renderNoPaymenDataWindow = () => (
         <Grid item>
             <Typography className="AppForm_margin" variant="h4" component="h4">
                 Заполните платежные данные
@@ -203,82 +251,48 @@ const Map = class extends React.PureComponent {
         </Grid>
     );
 
-    render() {
-        return (
-            <>
-                <div
-                    id="mapBox"
-                    ref={this.mapContainer}
-                    style={{
-                        flexGrow: 1,
-                    }}
-                ></div>
-                <Grid
-                    style={{
-                        position: "absolute",
-                        top: "3rem",
-                        left: "3rem",
-                        width: "30%",
-                        minWidth: "25rem",
-                    }}
-                >
-                    <Paper elevation={0} className="AppForm">
-                        <Grid container justify="center" direction="column">
-                            {this.props.profile ? (
-                                <>
-                                    {this.props.isLoaded ? (
-                                        <>{this.renderRoutePreloader()}</>
-                                    ) : (
-                                        <>
-                                            {this.props.route ? (
-                                                <>
-                                                    {this.renderOrderCompleteWindow()}
-                                                </>
-                                            ) : (
-                                                <>{this.renderOrderForm()}</>
-                                            )}
-                                        </>
-                                    )}
-                                </>
-                            ) : (
-                                <>{this.renderNoPaymenDataWindow()}</>
-                            )}
-                        </Grid>
-                    </Paper>
-                </Grid>
-            </>
-        );
-    }
+    return (
+        <>
+            <div
+                id="mapBox"
+                ref={mapContainer}
+                style={{
+                    flexGrow: 1,
+                }}
+            ></div>
+            <Grid
+                style={{
+                    position: "absolute",
+                    top: "3rem",
+                    left: "3rem",
+                    width: "30%",
+                    minWidth: "25rem",
+                }}
+            >
+                <Paper elevation={0} className="AppForm">
+                    <Grid container justify="center" direction="column">
+                        {profile ? (
+                            <>
+                                {isLoaded ? (
+                                    <>{renderRoutePreloader()}</>
+                                ) : (
+                                    <>
+                                        {route ? (
+                                            <>{renderOrderCompleteWindow()}</>
+                                        ) : (
+                                            <>{renderOrderForm()}</>
+                                        )}
+                                    </>
+                                )}
+                            </>
+                        ) : (
+                            <>{renderNoPaymenDataWindow()}</>
+                        )}
+                    </Grid>
+                </Paper>
+            </Grid>
+        </>
+    );
 };
 
-Map.propTypes = {
-    fetchRoute: PropTypes.func,
-    clearRoute: PropTypes.func,
-    addresses: PropTypes.array,
-    route: PropTypes.array,
-    isLoaded: PropTypes.bool,
-    profile: PropTypes.shape({
-        cardNumber: PropTypes.string,
-        expiryDate: PropTypes.string,
-        cardName: PropTypes.string,
-        cvc: PropTypes.string,
-    }),
-};
-
-const mapStateToProps = (state) => ({
-    addresses: getAddresses(state),
-    profile: getPaymentInfo(state),
-    route: getRoute(state),
-    isLoaded: routeIsLoaded(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    fetchRoute: (route) => {
-        dispatch(fetchRoute(route));
-    },
-    clearRoute: () => {
-        dispatch(clearRoute());
-    },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Map);
+export default Map;
