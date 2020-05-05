@@ -7,16 +7,14 @@ import {
     TextField,
     Button,
 } from "@material-ui/core";
-
-import InputMask from "react-input-mask";
 import cardLogo from "../assets/mc_symbol.svg";
 import { Link } from "react-router-dom";
-import { putProfile } from "../redux/modules/profile";
 import { useSelector, useDispatch } from "react-redux";
 import {
+    putProfile,
     getPaymentInfo,
     profileIsLoaded as isProfileLoaded,
-} from "../redux/modules/profile";
+} from "../store/modules/profile";
 import { useForm } from "react-hook-form";
 
 const Profile = () => {
@@ -33,7 +31,7 @@ const Profile = () => {
                   cardExpiryDate: profile.expiryDate,
                   cardCVC: profile.cvc,
               }
-            : null,
+            : {},
     });
 
     const onSubmit = (data) => {
@@ -105,40 +103,38 @@ const Profile = () => {
                                     alt="card logo"
                                 />
                             </div>
-                            {/*  */}
-                            <InputMask
-                                mask="9999 9999 9999 9999"
+
+                            <TextField
+                                id="cardNumber"
+                                label="Номер карты"
                                 name="cardNumber"
-                            >
-                                <TextField
-                                    label="Номер карты"
-                                    name="cardNumber"
-                                    style={{
-                                        marginBottom: errors.cardNumber
-                                            ? "0.225rem"
-                                            : "1.6rem",
-                                    }}
-                                    error={!!errors.cardNumber}
-                                    helperText={
-                                        errors.cardNumber &&
-                                        errors.cardNumber.message
-                                    }
-                                    fullWidth={true}
-                                    inputRef={register({
-                                        required: {
-                                            value: true,
-                                            message:
-                                                "Поле должно быть заполено!",
-                                        },
-                                    })}
-                                />
-                            </InputMask>
-                            <InputMask
-                                mask="99/99"
-                                name="cardExpiryDate"
-                            >
+                                style={{
+                                    marginBottom: errors.cardNumber
+                                        ? "0.225rem"
+                                        : "1.6rem",
+                                }}
+                                error={!!errors.cardNumber}
+                                helperText={
+                                    errors.cardNumber &&
+                                    errors.cardNumber.message
+                                }
+                                fullWidth={true}
+                                inputRef={register({
+                                    required: {
+                                        value: true,
+                                        message: "Поле должно быть заполено!",
+                                    },
+                                    pattern: {
+                                        value: /^\d{4}\s?\d{4}\s?\d{4}\s?\d{4}$/,
+                                        message:
+                                            "Поле должно содержать 16 цифр",
+                                    },
+                                })}
+                            />
+
                             <TextField
                                 label="Срок действия"
+                                id="cardExpiryDate"
                                 name="cardExpiryDate"
                                 style={{
                                     marginBottom: errors.cardExpiryDate
@@ -158,8 +154,6 @@ const Profile = () => {
                                     },
                                 })}
                             />
-                            </InputMask>
-                           
                         </Paper>
                     </Grid>
                     <Grid item xs={6}>
@@ -171,6 +165,7 @@ const Profile = () => {
                         >
                             <TextField
                                 label="Имя владельца"
+                                id="cardHolder"
                                 name="cardHolder"
                                 style={{
                                     marginBottom: errors.cardHolder
@@ -192,6 +187,7 @@ const Profile = () => {
                             />
                             <TextField
                                 label="CVC"
+                                id="cardCVC"
                                 name="cardCVC"
                                 style={{
                                     marginBottom: errors.cardCVC
@@ -221,6 +217,7 @@ const Profile = () => {
                 <Grid item align="center">
                     <Button
                         variant="contained"
+                        data-testid="profileSubmitBtn"
                         color="primary"
                         type="submit"
                         style={{
@@ -253,14 +250,10 @@ const Profile = () => {
                     <Grid container justify="center" align="center">
                         <CircularProgress size="4rem" color="inherit" />
                     </Grid>
+                ) : isSubmit && !profileIsLoaded ? (
+                    renderPaymentInfoUpdateWindow()
                 ) : (
-                    <>
-                        {isSubmit && !profileIsLoaded ? (
-                            <>{renderPaymentInfoUpdateWindow()}</>
-                        ) : (
-                            <>{renderPaymentInfoForm()}</>
-                        )}
-                    </>
+                    renderPaymentInfoForm()
                 )}
             </Paper>
         </Grid>

@@ -1,0 +1,265 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Profile Component Происходит корректная отрисовка 1`] = `
+<div
+  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 MuiGrid-grid-md-9 MuiGrid-grid-lg-7"
+>
+  <div
+    className="MuiPaper-root AppForm MuiPaper-elevation0 MuiPaper-rounded"
+  >
+    <h4
+      className="MuiTypography-root MuiTypography-h4"
+    >
+      Профиль
+    </h4>
+    <p
+      className="MuiTypography-root AppForm_margin MuiTypography-subtitle1"
+      style={
+        Object {
+          "color": "rgba(0, 0, 0, 0.54)",
+        }
+      }
+    >
+      Способ оплаты
+    </p>
+    <form
+      autoComplete="off"
+      onSubmit={[Function]}
+    >
+      <div
+        className="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-column MuiGrid-justify-xs-center"
+      >
+        <div
+          className="MuiGrid-root AppForm_margin MuiGrid-container MuiGrid-spacing-xs-3 MuiGrid-item MuiGrid-justify-xs-space-between"
+        >
+          <div
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
+          >
+            <div
+              className="MuiPaper-root MuiPaper-elevation3 MuiPaper-rounded"
+              style={
+                Object {
+                  "padding": "2.5rem 2rem",
+                }
+              }
+            >
+              <div
+                style={
+                  Object {
+                    "position": "relative",
+                  }
+                }
+              >
+                <img
+                  alt="card logo"
+                  src="mc_symbol.svg"
+                  style={
+                    Object {
+                      "position": "absolute",
+                      "right": 0,
+                      "top": "-.5rem",
+                      "width": "2rem",
+                    }
+                  }
+                />
+              </div>
+              <div
+                className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+                style={
+                  Object {
+                    "marginBottom": "1.6rem",
+                  }
+                }
+              >
+                <label
+                  className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
+                  data-shrink={false}
+                  htmlFor="cardNumber"
+                  id="cardNumber-label"
+                >
+                  Номер карты
+                </label>
+                <div
+                  className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+                  onClick={[Function]}
+                >
+                  <input
+                    aria-invalid={false}
+                    autoFocus={false}
+                    className="MuiInputBase-input MuiInput-input"
+                    disabled={false}
+                    id="cardNumber"
+                    name="cardNumber"
+                    onAnimationStart={[Function]}
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    required={false}
+                    type="text"
+                  />
+                </div>
+              </div>
+              <div
+                className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+                style={
+                  Object {
+                    "marginBottom": "1.6rem",
+                  }
+                }
+              >
+                <label
+                  className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
+                  data-shrink={false}
+                  htmlFor="cardExpiryDate"
+                  id="cardExpiryDate-label"
+                >
+                  Срок действия
+                </label>
+                <div
+                  className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+                  onClick={[Function]}
+                >
+                  <input
+                    aria-invalid={false}
+                    autoFocus={false}
+                    className="MuiInputBase-input MuiInput-input"
+                    disabled={false}
+                    id="cardExpiryDate"
+                    name="cardExpiryDate"
+                    onAnimationStart={[Function]}
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    required={false}
+                    type="text"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
+          >
+            <div
+              className="MuiPaper-root MuiPaper-elevation3 MuiPaper-rounded"
+              style={
+                Object {
+                  "padding": "2.5rem 2rem",
+                }
+              }
+            >
+              <div
+                className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+                style={
+                  Object {
+                    "marginBottom": "1.6rem",
+                  }
+                }
+              >
+                <label
+                  className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
+                  data-shrink={false}
+                  htmlFor="cardHolder"
+                  id="cardHolder-label"
+                >
+                  Имя владельца
+                </label>
+                <div
+                  className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+                  onClick={[Function]}
+                >
+                  <input
+                    aria-invalid={false}
+                    autoFocus={false}
+                    className="MuiInputBase-input MuiInput-input"
+                    disabled={false}
+                    id="cardHolder"
+                    name="cardHolder"
+                    onAnimationStart={[Function]}
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    required={false}
+                    type="text"
+                  />
+                </div>
+              </div>
+              <div
+                className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+                style={
+                  Object {
+                    "marginBottom": "1.6rem",
+                  }
+                }
+              >
+                <label
+                  className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
+                  data-shrink={false}
+                  htmlFor="cardCVC"
+                  id="cardCVC-label"
+                >
+                  CVC
+                </label>
+                <div
+                  className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+                  onClick={[Function]}
+                >
+                  <input
+                    aria-invalid={false}
+                    autoFocus={false}
+                    className="MuiInputBase-input MuiInput-input"
+                    disabled={false}
+                    id="cardCVC"
+                    name="cardCVC"
+                    onAnimationStart={[Function]}
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    required={false}
+                    type="text"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          align="center"
+          className="MuiGrid-root MuiGrid-item"
+        >
+          <button
+            className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
+            data-testid="profileSubmitBtn"
+            disabled={false}
+            onBlur={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            style={
+              Object {
+                "background": "#ffc617",
+                "color": "rgba(0, 0, 0, 0.87)",
+              }
+            }
+            tabIndex={0}
+            type="submit"
+          >
+            <span
+              className="MuiButton-label"
+            >
+              Сохранить
+            </span>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+`;

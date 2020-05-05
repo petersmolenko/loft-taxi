@@ -4,10 +4,15 @@ import { Link } from "react-router-dom";
 import { drawRoute } from "../shared/drawRoute.js";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { fetchRoute, clearRoute } from "../redux/modules/routes";
 import { useSelector, useDispatch } from "react-redux";
-import { getPaymentInfo } from "../redux/modules/profile";
-import { getAddresses, getRoute, routeIsLoaded } from "../redux/modules/routes";
+import { getPaymentInfo, profileIsLoaded } from "../store/modules/profile";
+import {
+    getAddresses,
+    getRoute,
+    routeIsLoaded,
+    fetchRoute,
+    clearRoute,
+} from "../store/modules/routes";
 import { useForm } from "react-hook-form";
 import mapboxgl from "mapbox-gl";
 mapboxgl.accessToken =
@@ -15,6 +20,7 @@ mapboxgl.accessToken =
 
 const Map = () => {
     const addresses = useSelector(getAddresses);
+    const isProfileLoaded = useSelector(profileIsLoaded);
     const route = useSelector(getRoute);
     const profile = useSelector(getPaymentInfo);
     const isLoaded = useSelector(routeIsLoaded);
@@ -30,10 +36,8 @@ const Map = () => {
     };
 
     useEffect(() => {
-        if (map.current) {
-            if (route && !map.current.getLayer("route")) {
-                drawRoute(map.current, route);
-            }
+        if (map.current && route && !map.current.getLayer("route")) {
+            drawRoute(map.current, route);
         }
     });
 
@@ -100,6 +104,18 @@ const Map = () => {
         </Grid>
     );
 
+    const renderProfilePreloader = () => (
+        <Grid item container align="center" justify="center">
+            <Typography
+                style={{ margin: "4rem" }}
+                variant="body1"
+                component="p"
+            >
+                Загрузка данных...
+            </Typography>
+        </Grid>
+    );
+
     const renderOrderCompleteWindow = () => (
         <Grid item>
             <Typography className="AppForm_margin" variant="h4" component="h4">
@@ -137,7 +153,7 @@ const Map = () => {
             <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
                 <Grid item>
                     <Autocomplete
-                        id="combo-box-demo"
+                        id="startCurrent"
                         options={addresses}
                         filterOptions={filterOptions}
                         onChange={(e, data) => {
@@ -207,6 +223,7 @@ const Map = () => {
                         variant="contained"
                         type="submit"
                         fullWidth
+                        data-testid="getRouteBtn"
                         disabled={formFilled ? false : true}
                         style={
                             formFilled
@@ -271,23 +288,15 @@ const Map = () => {
             >
                 <Paper elevation={0} className="AppForm">
                     <Grid container justify="center" direction="column">
-                        {profile ? (
-                            <>
-                                {isLoaded ? (
-                                    <>{renderRoutePreloader()}</>
-                                ) : (
-                                    <>
-                                        {route ? (
-                                            <>{renderOrderCompleteWindow()}</>
-                                        ) : (
-                                            <>{renderOrderForm()}</>
-                                        )}
-                                    </>
-                                )}
-                            </>
-                        ) : (
-                            <>{renderNoPaymenDataWindow()}</>
-                        )}
+                        {isProfileLoaded
+                            ? renderProfilePreloader()
+                            : profile
+                            ? isLoaded
+                                ? renderRoutePreloader()
+                                : route
+                                ? renderOrderCompleteWindow()
+                                : renderOrderForm()
+                            : renderNoPaymenDataWindow()}
                     </Grid>
                 </Paper>
             </Grid>

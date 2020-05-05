@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { isLoggedIn as isLoggedInSelector } from "../redux/modules/auth";
+import { isLoggedIn as isLoggedInSelector } from "../store/modules/auth";
 import Grid from "@material-ui/core/Grid";
 import Header from "./Header.jsx";
 import Login from "./Login.jsx";

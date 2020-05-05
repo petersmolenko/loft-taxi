@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Signup testing renders correctly 1`] = `
+exports[`Signup Component Происходит корректная отрисовка 1`] = `
 Array [
   <div
     className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-align-items-xs-flex-end MuiGrid-justify-xs-center MuiGrid-grid-xs-10 MuiGrid-grid-sm-9 MuiGrid-grid-md-3"
@@ -77,6 +77,8 @@ Array [
                   <label
                     className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
                     data-shrink={false}
+                    htmlFor="userEmail"
+                    id="userEmail-label"
                   >
                     Адрес электронной почты
                   </label>
@@ -88,8 +90,8 @@ Array [
                       aria-invalid={false}
                       autoFocus={false}
                       className="MuiInputBase-input MuiInput-input"
-                      data-testid="userEmailField"
                       disabled={false}
+                      id="userEmail"
                       name="userEmail"
                       onAnimationStart={[Function]}
                       onBlur={[Function]}
@@ -118,6 +120,8 @@ Array [
                     <label
                       className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
                       data-shrink={false}
+                      htmlFor="userFirstName"
+                      id="userFirstName-label"
                     >
                       Имя
                     </label>
@@ -129,8 +133,8 @@ Array [
                         aria-invalid={false}
                         autoFocus={false}
                         className="MuiInputBase-input MuiInput-input"
-                        data-testid="userFirstNameField"
                         disabled={false}
+                        id="userFirstName"
                         name="userFirstName"
                         onAnimationStart={[Function]}
                         onBlur={[Function]}
@@ -156,6 +160,8 @@ Array [
                     <label
                       className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
                       data-shrink={false}
+                      htmlFor="userSurname"
+                      id="userSurname-label"
                     >
                       Фамилия
                     </label>
@@ -167,8 +173,8 @@ Array [
                         aria-invalid={false}
                         autoFocus={false}
                         className="MuiInputBase-input MuiInput-input"
-                        data-testid="userSurnameField"
                         disabled={false}
+                        id="userSurname"
                         name="userSurname"
                         onAnimationStart={[Function]}
                         onBlur={[Function]}
@@ -195,6 +201,8 @@ Array [
                   <label
                     className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
                     data-shrink={false}
+                    htmlFor="userPassword"
+                    id="userPassword-label"
                   >
                     Пароль
                   </label>
@@ -206,8 +214,8 @@ Array [
                       aria-invalid={false}
                       autoFocus={false}
                       className="MuiInputBase-input MuiInput-input"
-                      data-testid="userPasswordField"
                       disabled={false}
+                      id="userPassword"
                       name="userPassword"
                       onAnimationStart={[Function]}
                       onBlur={[Function]}
@@ -235,7 +243,7 @@ Array [
                   >
                     <button
                       className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
-                      data-testid="loginBtn"
+                      data-testid="signupBtn"
                       disabled={false}
                       onBlur={[Function]}
                       onDragLeave={[Function]}

@@ -1,7 +1,12 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import logo from "../assets/logo-white.svg";
 import { useSelector, useDispatch } from "react-redux";
-import { loggedIn, isLoaded, getError, clearErrors } from "../redux/modules/auth";
+import {
+    loggedIn,
+    isLoaded,
+    getError,
+    clearErrors,
+} from "../store/modules/auth";
 import {
     Grid,
     Paper,
@@ -20,16 +25,46 @@ const Login = () => {
     const isAuthLoaded = useSelector(isLoaded);
     const authError = useSelector(getError);
     const dispatch = useDispatch();
-
-    useEffect(()=>{
-        dispatch(clearErrors())
-        // eslint-disable-next-line
-    }, [])
-    
     const onSubmit = (data) => {
         const { userName: email, userPassword: password } = data;
         dispatch(loggedIn({ email, password }));
     };
+    const renderAuthLoaded = () => (
+        <Grid item>
+            <Grid container justify="center" alignItems="center">
+                <HowToRegIcon
+                    style={{
+                        marginRight: ".25rem",
+                    }}
+                    color="primary"
+                />
+                <Typography variant="body2" color="primary" component="span">
+                    Идет авторизация...
+                </Typography>
+            </Grid>
+        </Grid>
+    );
+
+    const renderAuthError = () => (
+        <Grid item>
+            <Grid container justify="center" alignItems="center">
+                <ErrorOutlinedIcon
+                    color="error"
+                    style={{
+                        marginRight: ".25rem",
+                    }}
+                />
+                <Typography variant="body2" color="error" component="span">
+                    {authError}
+                </Typography>
+            </Grid>
+        </Grid>
+    );
+
+    useEffect(() => {
+        dispatch(clearErrors());
+        // eslint-disable-next-line
+    }, []);
 
     return (
         <>
@@ -45,6 +80,7 @@ const Login = () => {
             >
                 <img className="MainLogo" src={logo} alt="" />
             </Grid>
+
             <Grid item xs={11} sm={8} md={6} lg={5}>
                 <Paper elevation={0} className="AppForm">
                     <Grid container direction="column" justify="space-between">
@@ -170,53 +206,11 @@ const Login = () => {
                                         alignItems="center"
                                         justify="space-between"
                                     >
-                                        {isAuthLoaded ? (
-                                            <Grid item>
-                                                <Grid
-                                                    container
-                                                    justify="center"
-                                                    alignItems="center"
-                                                >
-                                                    <HowToRegIcon
-                                                        style={{
-                                                            marginRight:
-                                                                ".25rem",
-                                                        }}
-                                                        color="primary"
-                                                    />
-                                                    <Typography
-                                                        variant="body2"
-                                                        color="primary"
-                                                        component="span"
-                                                    >
-                                                        Идет авторизация...
-                                                    </Typography>
-                                                </Grid>
-                                            </Grid>
-                                        ) : authError ? (
-                                            <Grid item>
-                                                <Grid
-                                                    container
-                                                    justify="center"
-                                                    alignItems="center"
-                                                >
-                                                    <ErrorOutlinedIcon
-                                                        color="error"
-                                                        style={{
-                                                            marginRight:
-                                                                ".25rem",
-                                                        }}
-                                                    />
-                                                    <Typography
-                                                        variant="body2"
-                                                        color="error"
-                                                        component="span"
-                                                    >
-                                                        {authError}
-                                                    </Typography>
-                                                </Grid>
-                                            </Grid>
-                                        ) : null}
+                                        {isAuthLoaded
+                                            ? renderAuthLoaded()
+                                            : authError
+                                            ? renderAuthError()
+                                            : null}
                                         <Grid item style={{ flexGrow: 1 }}>
                                             <Grid
                                                 container

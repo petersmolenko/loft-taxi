@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { signUp, isLoaded, getError, clearErrors } from "../redux/modules/auth";
+import { signUp, isLoaded, getError, clearErrors } from "../store/modules/auth";
 import { useSelector, useDispatch } from "react-redux";
 import {
     Grid,
@@ -29,7 +29,49 @@ const Signup = ({ signup }) => {
         } = data;
         dispatch(signUp({ email, name, surname, password }));
     };
+    const renderAuthLoaded = () => (
+        <Grid item sm={6}>
+            <Grid container>
+                <Grid item xs={2}>
+                    <HowToRegIcon
+                        style={{
+                            marginRight: ".25rem",
+                        }}
+                        color="primary"
+                    />
+                </Grid>
+                <Grid item xs={10}>
+                    <Typography
+                        variant="body2"
+                        color="primary"
+                        component="span"
+                    >
+                        Идет регистрация...
+                    </Typography>
+                </Grid>
+            </Grid>
+        </Grid>
+    );
 
+    const renderAuthError = () => (
+        <Grid item sm={6}>
+            <Grid container justify="center" alignItems="center">
+                <Grid item xs={2}>
+                    <ErrorOutlinedIcon
+                        color="error"
+                        style={{
+                            marginRight: ".25rem",
+                        }}
+                    />
+                </Grid>
+                <Grid item xs={10}>
+                    <Typography variant="body2" color="error" component="span">
+                        {authError}
+                    </Typography>
+                </Grid>
+            </Grid>
+        </Grid>
+    );
     useEffect(() => {
         dispatch(clearErrors());
         // eslint-disable-next-line
@@ -49,6 +91,7 @@ const Signup = ({ signup }) => {
             >
                 <img className="MainLogo" src={logo} alt="" />
             </Grid>
+
             <Grid item xs={10} sm={9} md={6} lg={5}>
                 <Paper elevation={0} className="AppForm">
                     <Grid container direction="column" justify="space-between">
@@ -91,9 +134,7 @@ const Signup = ({ signup }) => {
                                     <Grid item>
                                         <TextField
                                             label="Адрес электронной почты"
-                                            inputProps={{
-                                                "data-testid": "userEmailField",
-                                            }}
+                                            id="userEmail"
                                             name="userEmail"
                                             style={{
                                                 marginBottom: errors.userEmail
@@ -138,12 +179,9 @@ const Signup = ({ signup }) => {
                                     >
                                         <Grid item xs={6}>
                                             <TextField
-                                                inputProps={{
-                                                    "data-testid":
-                                                        "userFirstNameField",
-                                                }}
                                                 label="Имя"
                                                 fullWidth={true}
+                                                id="userFirstName"
                                                 name="userFirstName"
                                                 style={{
                                                     marginBottom: errors.userFirstName
@@ -171,11 +209,8 @@ const Signup = ({ signup }) => {
                                         </Grid>
                                         <Grid item xs={6}>
                                             <TextField
-                                                inputProps={{
-                                                    "data-testid":
-                                                        "userSurnameField",
-                                                }}
                                                 label="Фамилия"
+                                                id="userSurname"
                                                 name="userSurname"
                                                 fullWidth={true}
                                                 style={{
@@ -205,12 +240,9 @@ const Signup = ({ signup }) => {
                                     </Grid>
                                     <Grid item>
                                         <TextField
-                                            inputProps={{
-                                                "data-testid":
-                                                    "userPasswordField",
-                                            }}
                                             label="Пароль"
                                             type="password"
+                                            id="userPassword"
                                             name="userPassword"
                                             style={{
                                                 marginBottom: errors.userPassword
@@ -243,57 +275,11 @@ const Signup = ({ signup }) => {
                                         />
                                     </Grid>
                                     <Grid item container spacing={1}>
-                                        {isAuthLoaded ? (
-                                            <Grid item sm={6}>
-                                                <Grid container>
-                                                    <Grid item xs={2}>
-                                                        <HowToRegIcon
-                                                            style={{
-                                                                marginRight:
-                                                                    ".25rem",
-                                                            }}
-                                                            color="primary"
-                                                        />
-                                                    </Grid>
-                                                    <Grid item xs={10}>
-                                                        <Typography
-                                                            variant="body2"
-                                                            color="primary"
-                                                            component="span"
-                                                        >
-                                                            Идет регистрация...
-                                                        </Typography>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                        ) : authError ? (
-                                            <Grid item sm={6}>
-                                                <Grid
-                                                    container
-                                                    justify="center"
-                                                    alignItems="center"
-                                                >
-                                                    <Grid item xs={2}>
-                                                        <ErrorOutlinedIcon
-                                                            color="error"
-                                                            style={{
-                                                                marginRight:
-                                                                    ".25rem",
-                                                            }}
-                                                        />
-                                                    </Grid>
-                                                    <Grid item xs={10}>
-                                                        <Typography
-                                                            variant="body2"
-                                                            color="error"
-                                                            component="span"
-                                                        >
-                                                            {authError}
-                                                        </Typography>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                        ) : null}
+                                        {isAuthLoaded
+                                            ? renderAuthLoaded()
+                                            : authError
+                                            ? renderAuthError()
+                                            : null}
                                         <Grid item style={{ flexGrow: 1 }}>
                                             <Grid
                                                 container
@@ -309,7 +295,7 @@ const Signup = ({ signup }) => {
                                                         color:
                                                             "rgba(0, 0, 0, 0.87)",
                                                     }}
-                                                    data-testid="loginBtn"
+                                                    data-testid="signupBtn"
                                                 >
                                                     Зарегистрироваться
                                                 </Button>

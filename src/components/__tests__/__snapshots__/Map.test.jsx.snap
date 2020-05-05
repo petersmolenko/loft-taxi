@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Map testing renders correctly (authorized) 1`] = `
+exports[`Map Component Происходит корректная отрисовка 1`] = `
 Array [
   <div
     id="mapBox"
@@ -55,8 +55,8 @@ Array [
                 <label
                   className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
                   data-shrink={false}
-                  htmlFor="combo-box-demo"
-                  id="combo-box-demo-label"
+                  htmlFor="startCurrent"
+                  id="startCurrent-label"
                 >
                   Откуда
                 </label>
@@ -74,7 +74,7 @@ Array [
                     autoFocus={false}
                     className="MuiInputBase-input MuiInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd"
                     disabled={false}
-                    id="combo-box-demo"
+                    id="startCurrent"
                     name="startCurrent"
                     onAnimationStart={[Function]}
                     onBlur={[Function]}
@@ -299,6 +299,7 @@ Array [
           >
             <button
               className="MuiButtonBase-root MuiButton-root MuiButton-contained Mui-disabled MuiButton-fullWidth Mui-disabled"
+              data-testid="getRouteBtn"
               disabled={true}
               onBlur={[Function]}
               onDragLeave={[Function]}
