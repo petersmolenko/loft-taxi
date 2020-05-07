@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Profile testing renders correctly (authorized) 1`] = `
+exports[`Profile Component Происходит корректная отрисовка 1`] = `
 <div
   className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-11 MuiGrid-grid-md-9 MuiGrid-grid-lg-7"
 >
@@ -24,7 +24,7 @@ exports[`Profile testing renders correctly (authorized) 1`] = `
     </p>
     <form
       autoComplete="off"
-      noValidate={true}
+      onSubmit={[Function]}
     >
       <div
         className="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-column MuiGrid-justify-xs-center"
@@ -64,21 +64,20 @@ exports[`Profile testing renders correctly (authorized) 1`] = `
                 />
               </div>
               <div
-                className="MuiFormControl-root MuiTextField-root AppForm_margin MuiFormControl-fullWidth"
+                className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+                style={
+                  Object {
+                    "marginBottom": "1.6rem",
+                  }
+                }
               >
                 <label
-                  className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled Mui-required Mui-required"
-                  data-shrink={true}
-                  htmlFor="userCardNum"
-                  id="userCardNum-label"
+                  className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
+                  data-shrink={false}
+                  htmlFor="cardNumber"
+                  id="cardNumber-label"
                 >
                   Номер карты
-                  <span
-                    className="MuiFormLabel-asterisk MuiInputLabel-asterisk"
-                  >
-                     
-                    *
-                  </span>
                 </label>
                 <div
                   className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
@@ -89,33 +88,32 @@ exports[`Profile testing renders correctly (authorized) 1`] = `
                     autoFocus={false}
                     className="MuiInputBase-input MuiInput-input"
                     disabled={false}
-                    id="userCardNum"
+                    id="cardNumber"
+                    name="cardNumber"
                     onAnimationStart={[Function]}
                     onBlur={[Function]}
                     onChange={[Function]}
                     onFocus={[Function]}
-                    required={true}
+                    required={false}
                     type="text"
-                    value="0000 0000 0000 0000"
                   />
                 </div>
               </div>
               <div
                 className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+                style={
+                  Object {
+                    "marginBottom": "1.6rem",
+                  }
+                }
               >
                 <label
-                  className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled Mui-required Mui-required"
-                  data-shrink={true}
-                  htmlFor="userCardDuration"
-                  id="userCardDuration-label"
+                  className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
+                  data-shrink={false}
+                  htmlFor="cardExpiryDate"
+                  id="cardExpiryDate-label"
                 >
                   Срок действия
-                  <span
-                    className="MuiFormLabel-asterisk MuiInputLabel-asterisk"
-                  >
-                     
-                    *
-                  </span>
                 </label>
                 <div
                   className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
@@ -126,14 +124,14 @@ exports[`Profile testing renders correctly (authorized) 1`] = `
                     autoFocus={false}
                     className="MuiInputBase-input MuiInput-input"
                     disabled={false}
-                    id="userCardDuration"
+                    id="cardExpiryDate"
+                    name="cardExpiryDate"
                     onAnimationStart={[Function]}
                     onBlur={[Function]}
                     onChange={[Function]}
                     onFocus={[Function]}
-                    required={true}
+                    required={false}
                     type="text"
-                    value="12/20"
                   />
                 </div>
               </div>
@@ -151,21 +149,20 @@ exports[`Profile testing renders correctly (authorized) 1`] = `
               }
             >
               <div
-                className="MuiFormControl-root MuiTextField-root AppForm_margin MuiFormControl-fullWidth"
+                className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+                style={
+                  Object {
+                    "marginBottom": "1.6rem",
+                  }
+                }
               >
                 <label
-                  className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled Mui-required Mui-required"
-                  data-shrink={true}
-                  htmlFor="userCardHolder"
-                  id="userCardHolder-label"
+                  className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
+                  data-shrink={false}
+                  htmlFor="cardHolder"
+                  id="cardHolder-label"
                 >
                   Имя владельца
-                  <span
-                    className="MuiFormLabel-asterisk MuiInputLabel-asterisk"
-                  >
-                     
-                    *
-                  </span>
                 </label>
                 <div
                   className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
@@ -176,33 +173,32 @@ exports[`Profile testing renders correctly (authorized) 1`] = `
                     autoFocus={false}
                     className="MuiInputBase-input MuiInput-input"
                     disabled={false}
-                    id="userCardHolder"
+                    id="cardHolder"
+                    name="cardHolder"
                     onAnimationStart={[Function]}
                     onBlur={[Function]}
                     onChange={[Function]}
                     onFocus={[Function]}
-                    required={true}
+                    required={false}
                     type="text"
-                    value="Mark Kram"
                   />
                 </div>
               </div>
               <div
                 className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+                style={
+                  Object {
+                    "marginBottom": "1.6rem",
+                  }
+                }
               >
                 <label
-                  className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled Mui-required Mui-required"
-                  data-shrink={true}
-                  htmlFor="userCardCVC"
-                  id="userCardCVC-label"
+                  className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
+                  data-shrink={false}
+                  htmlFor="cardCVC"
+                  id="cardCVC-label"
                 >
                   CVC
-                  <span
-                    className="MuiFormLabel-asterisk MuiInputLabel-asterisk"
-                  >
-                     
-                    *
-                  </span>
                 </label>
                 <div
                   className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
@@ -213,14 +209,14 @@ exports[`Profile testing renders correctly (authorized) 1`] = `
                     autoFocus={false}
                     className="MuiInputBase-input MuiInput-input"
                     disabled={false}
-                    id="userCardCVC"
+                    id="cardCVC"
+                    name="cardCVC"
                     onAnimationStart={[Function]}
                     onBlur={[Function]}
                     onChange={[Function]}
                     onFocus={[Function]}
-                    required={true}
+                    required={false}
                     type="text"
-                    value="123"
                   />
                 </div>
               </div>
@@ -233,9 +229,9 @@ exports[`Profile testing renders correctly (authorized) 1`] = `
         >
           <button
             className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
+            data-testid="profileSubmitBtn"
             disabled={false}
             onBlur={[Function]}
-            onClick={[Function]}
             onDragLeave={[Function]}
             onFocus={[Function]}
             onKeyDown={[Function]}
@@ -253,7 +249,7 @@ exports[`Profile testing renders correctly (authorized) 1`] = `
               }
             }
             tabIndex={0}
-            type="button"
+            type="submit"
           >
             <span
               className="MuiButton-label"

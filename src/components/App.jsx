@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch, Redirect, withRouter } from "react-router-dom";
-import { connect } from "react-redux";
-import {isLoggedIn} from '../redux/modules/auth';
+import { useSelector } from "react-redux";
+import { isLoggedIn as isLoggedInSelector } from "../store/modules/auth";
 import Grid from "@material-ui/core/Grid";
 import Header from "./Header.jsx";
 import Login from "./Login.jsx";
@@ -9,23 +9,27 @@ import Signup from "./Signup.jsx";
 import Map from "./Map.jsx";
 import Profile from "./Profile.jsx";
 import PropTypes from "prop-types";
+import background from '../assets/Main_background.jpg'
 
-const App = ({ location, isLoggedIn }) => {
+const App = ({ location }) => {
     const isMap = location.pathname === "/map";
+    const isLoggedIn = useSelector(isLoggedInSelector);
+
     return (
         <Grid
             container
             direction="column"
             style={{
                 minHeight: "100vh",
+                background: `url(${background}) center/cover fixed`
             }}
-            className="jss"
         >
             {isLoggedIn && <Header />}
 
             <Grid
                 item
                 container
+                alignContent={isMap ? "stretch" : "center"}
                 justify={isMap ? "flex-start" : "center"}
                 alignItems={isMap ? "stretch" : "center"}
                 style={{ flexGrow: 1, position: "relative" }}
@@ -67,10 +71,7 @@ const App = ({ location, isLoggedIn }) => {
 };
 
 App.propTypes = {
-    location: PropTypes.object,
-    isLoggedIn: PropTypes.bool,
+    location: PropTypes.object
 };
 
-const mapStateToProps = state => ({ isLoggedIn: isLoggedIn(state) });
-
-export default connect(mapStateToProps)(withRouter(App));
+export default withRouter(App);

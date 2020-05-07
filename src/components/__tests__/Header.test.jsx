@@ -6,16 +6,16 @@ import { Router } from "react-router-dom";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 import { createBrowserHistory } from "history";
-import { loggedOut } from "../../redux/modules/auth";
+import { clearRoute } from "../../store/modules/routes";
+import { loggedOut } from "../../store/modules/auth";
 
 const mockStore = configureStore([]);
 
-describe("Header testing", () => {
-    it("renders correctly", () => {
+describe("Header Component", () => {
+    it("Происходит корректная отрисовка", () => {
         const store = mockStore({
             auth: { isLoggedIn: true },
         });
-        store.dispatch = jest.fn();
 
         const history = createBrowserHistory();
         const tree = renderer
@@ -30,10 +30,11 @@ describe("Header testing", () => {
         expect(tree).toMatchSnapshot();
     });
 
-    it("logout", () => {
+    it("Нажатие кнопки Выход приводит к логауту", () => {
         const store = mockStore({
             auth: { isLoggedIn: true },
         });
+
         store.dispatch = jest.fn();
 
         const history = createBrowserHistory();
@@ -46,11 +47,12 @@ describe("Header testing", () => {
         );
 
         fireEvent.click(getByText("Выйти"));
-        expect(store.dispatch).toHaveBeenCalledTimes(1);
+        expect(store.dispatch).toHaveBeenCalledTimes(2);
+        expect(store.dispatch).toHaveBeenCalledWith(clearRoute());
         expect(store.dispatch).toHaveBeenCalledWith(loggedOut());
     });
 
-    it("map button click", () => {
+    it("Переход по ссылке Карта происходит корректно", () => {
         const store = mockStore({
             auth: { isLoggedIn: true },
         });
@@ -66,10 +68,10 @@ describe("Header testing", () => {
         );
 
         fireEvent.click(getByText("Карта"));
-        console.log(history.location.pathname);
         expect(history.location.pathname).toBe("/map");
     });
-    it("profile button click", () => {
+
+    it("Переход по ссылке Профиль происходит корректно", () => {
         const store = mockStore({
             auth: { isLoggedIn: true },
         });
@@ -85,7 +87,6 @@ describe("Header testing", () => {
         );
 
         fireEvent.click(getByText("Профиль"));
-        console.log(history.location.pathname);
         expect(history.location.pathname).toBe("/profile");
     });
 });

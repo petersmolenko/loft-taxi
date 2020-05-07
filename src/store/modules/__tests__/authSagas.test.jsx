@@ -57,7 +57,6 @@ describe("authSagas", () => {
                 authorizationSaga,
                 initialAction
             );
-            console.log(dispatched);
             expect(dispatched).toContainEqual(loggedInFailure("error"));
             expect(api.auth).toHaveBeenCalledWith({
                 email: "email",

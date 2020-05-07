@@ -2,16 +2,17 @@ import auth, { loggedInSuccess, loggedInFailure, loggedOut } from "../auth";
 
 describe("Auth Reducer", () => {
     it("loft-taxi/auth/LOGGED_IN_SUCCESS", () => {
-        expect(auth({ isLoggedIn: false }, loggedInSuccess("123"))).toEqual({
+        expect(auth({ isLoggedIn: false, isLoaded: true  }, loggedInSuccess("123"))).toEqual({
             isLoggedIn: true,
+            isLoaded: false,
             token: "123",
             error: null,
         });
     });
 
     it("loft-taxi/auth/LOGGED_IN_FAILURE", () => {
-        expect(auth({ isLoggedIn: true }, loggedInFailure("error"))).toEqual({
-            isLoggedIn: false,
+        expect(auth({ isLoaded: true }, loggedInFailure("error"))).toEqual({
+            isLoaded: false,
             error: "error",
         });
     });

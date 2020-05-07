@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Header testing renders correctly 1`] = `
+exports[`Header Component Происходит корректная отрисовка 1`] = `
 <div
   className="MuiPaper-root MuiPaper-elevation4"
 >

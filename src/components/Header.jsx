@@ -2,11 +2,12 @@ import React from "react";
 import { Grid, Paper, Button } from "@material-ui/core";
 import logo from "../assets/logo.svg";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { loggedOut } from "../redux/modules/auth";
-import PropTypes from "prop-types";
+import { loggedOut } from "../store/modules/auth";
+import { clearRoute } from "../store/modules/routes";
+import { useDispatch } from "react-redux";
 
-let Header = ({ logout }) => {
+let Header = () => {
+    const dispatch = useDispatch();
     return (
         <>
             <Paper elevation={4} square>
@@ -29,7 +30,8 @@ let Header = ({ logout }) => {
                         </Button>
                         <Button
                             onClick={() => {
-                                logout();
+                                dispatch(clearRoute());
+                                dispatch(loggedOut());
                             }}
                         >
                             Выйти
@@ -41,13 +43,4 @@ let Header = ({ logout }) => {
     );
 };
 
-Header.propTypes = {
-    logout: PropTypes.func,
-};
-
-const mapStateToProps = null;
-const mapDispatchToProps = (dispatch) => ({
-    logout: () => dispatch(loggedOut()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default Header;
